@@ -53,7 +53,7 @@ router.get('/getOneId/:id', async (req, res) => {
     }
 })
 
-router.get('/searchFor/:name', async (req, res) => {
+router.get('/searchForName/:name', async (req, res) => {
     var regexQuery = {
         name: new RegExp(req.params.name, 'i')
       }
@@ -67,6 +67,19 @@ router.get('/searchFor/:name', async (req, res) => {
     }
 })
 
+router.get('/searchForIngredients/:ingredients', async (req, res) => {
+    var regexQuery = {
+        ingredients: new RegExp(req.params.ingredients, 'i')
+      }
+   console.log(regexQuery)
+    try{
+        const data = await Model.find(regexQuery);
+        res.json(data)
+    }
+    catch(error){
+        res.status(500).json({message: error.message})
+    }
+})
 //Update by ID Method
 router.patch('/update/:id', (req, res) => {
     res.send('Update by ID API')
