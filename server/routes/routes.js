@@ -33,8 +33,38 @@ router.get('/getAll', async (req, res) => {
 })
 
 //Get by ID Method
-router.get('/getOne/:id', (req, res) => {
-    res.send('Get by ID API')
+router.get('/getOne/:name', async (req, res) => {
+    try{
+        const data = await Model.findById(req.params.name);
+        res.json(data)
+    }
+    catch(error){
+        res.status(500).json({message: error.message})
+    }
+})
+
+router.get('/getOneId/:id', async (req, res) => {
+    try{
+        const data = await Model.findById(req.params.id);
+        res.json(data)
+    }
+    catch(error){
+        res.status(500).json({message: error.message})
+    }
+})
+
+router.get('/searchFor/:name', async (req, res) => {
+    var regexQuery = {
+        name: new RegExp(req.params.name, 'i')
+      }
+   console.log(regexQuery)
+    try{
+        const data = await Model.find(regexQuery);
+        res.json(data)
+    }
+    catch(error){
+        res.status(500).json({message: error.message})
+    }
 })
 
 //Update by ID Method
