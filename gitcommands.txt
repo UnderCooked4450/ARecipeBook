@@ -1,0 +1,25 @@
+# Basic Commands:
+git init                           # Initialize a new Git repository
+git clone <repository_url>         # Clone a repository
+git status                         # Check the status of your working directory
+git add <file(s)>                  # Add changes to the staging area
+git commit -m "Commit message"     # Commit changes
+git push origin <branch_name>      # Push changes to a remote repository
+git pull origin <branch_name>      # Pull changes from a remote repository
+git fetch                          # Fetch changes from a remote repository
+
+# Branching and Merging:
+git branch <branch_name>           # Create a new branch
+git checkout <branch_name>         # Switch to a branch
+git switch <branch_name>           # Switch to a branch (alternative)
+git checkout -b <new_branch_name>  # Create and switch to a new branch
+git switch -c <new_branch_name>    # Create and switch to a new branch (alternative)
+git merge <branch_name>            # Merge a branch into the current branch
+git branch -d <branch_name>        # Delete a local branch
+
+# Remote Branch Operations:
+git push origin <local_branch_name>:<remote_branch_name>  # Push a local branch to a remote repository
+git push origin --delete <remote_branch_name>            # Delete a remote branch
+git fetch --all                    # Fetch remote branches
+git branch -u origin/<remote_branch_name>                # Track a remote branch
+
