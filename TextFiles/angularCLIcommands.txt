@@ -1,0 +1,32 @@
+# Create a new Angular project
+ng new my-app
+
+# Navigate to the project directory
+cd my-app
+
+# Serve the application locally for development
+ng serve
+
+# Build the application for production
+ng build
+
+# Generate a new component
+ng generate component my-component
+
+# Generate a new service
+ng generate service my-service
+
+# Generate a new module
+ng generate module my-module
+
+# Run unit tests
+ng test
+
+# Run end-to-end tests
+ng e2e
+
+# Generate documentation
+ng doc
+
+# Lint the code
+ng lint
