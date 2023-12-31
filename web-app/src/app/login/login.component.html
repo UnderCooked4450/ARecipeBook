@@ -1,1 +1,31 @@
-<p>login works!</p>
+<div class="auth-container">
+    <div class="auth-logo">
+    <img class = "logo" src="../../assets/img/logoImage.png" alt="logo">
+    </div>
+    <div class="auth-toggle">
+        <button (click)  = "toggleViewLogin()" [style.color]="isShowLogin ? 'grey' : '#5EA5F8'" class="auth-section">Login</button>
+        <button (click)  = "toggleViewRegister()" [style.color]="isShowRegister ? 'grey' : '#5EA5F8'" class="auth-section">Register</button>
+    </div>
+    <div [hidden] = "isShowLogin" >
+        <form  class="auth-form">
+            <input type="email" placeholder="Email Address" required>
+            <input type="password" placeholder="Password" required>
+            <div class="auth-remember">
+              <input type="checkbox" id="rememberMe">
+              <label for="rememberMe">Remember password</label>
+              <a href="#">Forget password</a>
+            </div>
+            <button type="submit">Login</button>
+          </form>
+    </div>
+    <div [hidden] = "isShowRegister">
+        <form class="auth-form">
+            <input type="email" placeholder="Email Address" required>
+            <input type="password" placeholder="Password" required>
+            <input type="password" placeholder="Confirm Password" required>
+            <button type="submit">Sign Up</button>
+          </form>
+    </div> 
+        <p>By signing in you are agreeing our <a href="#">Term and privacy policy</a></p>
+    </div>
+      
