@@ -20,4 +20,13 @@ export class LoginComponent {
     this.isShowRegister = false;  
   }  
 
+  login() {
+      // implement user authentication logic
+  
+  }
+
+  SignUp() {
+     //implement user sign up logic
+  }
+
 }
