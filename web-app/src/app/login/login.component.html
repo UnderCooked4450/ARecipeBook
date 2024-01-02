@@ -8,8 +8,8 @@
     </div>
     <div [hidden] = "isShowLogin" >
         <form  class="auth-form">
-            <input type="email" placeholder="Email Address" required>
-            <input type="password" placeholder="Password" required>
+            <input type="email" placeholder="Email Address" required [(ngModel)]="loginEmail" name="loginEmail">
+            <input type="password" placeholder="Password" required [(ngModel)]="loginPassword" name = "loginPassword">
             <div class="auth-remember">
               <input type="checkbox" id="rememberMe">
               <label for="rememberMe">Remember password</label>
@@ -20,10 +20,10 @@
     </div>
     <div [hidden] = "isShowRegister">
         <form class="auth-form">
-            <input type="email" placeholder="Email Address" required>
-            <input type="password" placeholder="Password" required>
-            <input type="password" placeholder="Confirm Password" required>
-            <button (click)="SignUp()" type="submit">Sign Up</button>
+            <input type="email" placeholder="Email Address" required [(ngModel)]="signUpEmail" name="signUpEmail"> 
+            <input type="password" placeholder="Password" required [(ngModel)]="signUpPassword" name="singUpPassword">
+            <input type="password" placeholder="Confirm Password" required [(ngModel)]="confirmPassword" name="confirmPassword">
+            <button (click)="signUp()" type="submit">Sign Up</button>
           </form>
     </div> 
         <p>By signing in you are agreeing our <a href="#">Term and privacy policy</a></p>
