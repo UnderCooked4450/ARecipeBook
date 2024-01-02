@@ -22,6 +22,9 @@ export class LoginComponent {
   signUpPassword = '';
   confirmPassword = '';
 
+  
+ //rememberMe = false;
+
   //login vs Register form vars
   isShowLogin = false; 
   isShowRegister = true;
@@ -41,6 +44,7 @@ export class LoginComponent {
     const credentials = {
       email: this.loginEmail, // Get from the form input
       password: this.loginPassword, // Get from the form input
+     // rememberMe: this.rememberMe 
     };
 
     this.authService.login(credentials).subscribe({
