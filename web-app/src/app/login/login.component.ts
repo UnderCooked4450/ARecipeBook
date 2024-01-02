@@ -3,6 +3,7 @@ import { AuthService } from '../auth.service';
 import { FormsModule } from '@angular/forms';
 import { Router } from '@angular/router';
 
+
 @Component({
   selector: 'app-login',
   standalone: true,
@@ -24,7 +25,7 @@ export class LoginComponent {
   //login vs Register form vars
   isShowLogin = false; 
   isShowRegister = true;
-   
+
   toggleViewLogin() {  
     this.isShowLogin = false; 
     this.isShowRegister = true; 
@@ -47,6 +48,7 @@ export class LoginComponent {
         console.log('Login successful:', value);
         // If login is successful, navigate to the homepage
         this.router.navigate(['/homepage']);
+        window.location.href = '/homepage';
       },
       error: error => {
         console.error('Error password and username do no match', error);
