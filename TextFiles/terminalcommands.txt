@@ -1,0 +1,56 @@
+# Navigation:
+cd <directory>        # Change directory
+cd ..                 # Move up one directory level
+cd ~                  # Move to the home directory
+pwd                  # Print the current working directory
+
+# File and Directory Management:
+ls                   # List files and directories
+ls -l                # List files and directories in detailed format
+mkdir <directory>    # Create a new directory
+touch <file>         # Create a new empty file
+cp <source> <dest>   # Copy files or directories
+mv <source> <dest>   # Move or rename files or directories
+rm <file>            # Remove a file
+rm -r <directory>    # Remove a directory and its contents (use with caution)
+
+# Viewing and Editing Files:
+cat <file>           # Display the content of a file
+less <file>          # View and navigate through a file
+nano <file>          # Open a file for editing in the nano text editor
+vim <file>           # Open a file for editing in the vim text editor
+
+# Searching for Files and Text:
+find <directory> -name <filename>  # Search for files by name
+grep <pattern> <file>              # Search for a pattern in a file
+grep -r <pattern> <directory>      # Recursively search for a pattern in files
+
+# System Information:
+uname -a             # Display system information
+df -h                # Show disk space usage
+du -h                # Display disk usage of files and directories
+
+# Process Management:
+ps                   # Display information about active processes
+top                  # Display dynamic real-time information about running processes
+kill <pid>           # Terminate a process by its process ID
+
+# Network Commands:
+ping <host>         # Send a network request to a host
+traceroute <host>   # Display the route that packets take to reach a destination
+netstat             # Display network statistics and connections
+ifconfig            # Display network interface configuration
+
+# Compression and Archiving:
+tar -cvf <archive.tar> <files/directory>  # Create a tar archive
+tar -xvf <archive.tar>                    # Extract files from a tar archive
+gzip <file>                             # Compress a file using gzip
+
+# Permissions:
+chmod <permissions> <file>  # Change file permissions
+chown <user:group> <file>   # Change file owner and group
+
+# Miscellaneous:
+history             # Display command history
+man <command>       # Display the manual for a command
+echo <text>         # Print text to the terminal

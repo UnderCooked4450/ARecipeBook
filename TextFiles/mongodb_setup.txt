@@ -1,0 +1,45 @@
+Setting Up MongoDB for the Project
+
+To run the project locally, you need to have MongoDB installed on your machine. Follow the steps below to set up MongoDB:
+
+Step 1: Install MongoDB
+
+1. Download the MongoDB Community Server from the official website: [MongoDB Download](https://www.mongodb.com/try/download/community)
+2. Follow the installation instructions for your operating system.
+
+Step 2: Start MongoDB
+
+On Unix-like Systems (Linux, macOS):
+
+Open a terminal and run the following command:
+
+mongod
+
+On Windows:
+
+1. Open the Command Prompt as an administrator.
+2. Navigate to the MongoDB installation directory.
+3. Run the following command:
+
+mongod.exe
+
+Leave this terminal or command prompt window open to keep the MongoDB server running.
+
+Step 3: Configure Connection URL
+
+1. In the project's root directory, find the .env file.
+2. Ensure that the MongoDB connection URL in the .env file is set correctly. It should look like:
+
+MONGODB_URL=mongodb://localhost:27017/user_auth
+
+Step 4: Run the Application
+
+Now that MongoDB is set up, you can run the project:
+
+1. Open a new terminal or command prompt.
+2. Navigate to the project's root directory.
+3. Run the command to start the application (e.g., npm start or ng serve).
+
+The application should now be accessible at http://localhost:3000 in your web browser.
+
+Note: Keep the MongoDB server running in the background while working on the project.
