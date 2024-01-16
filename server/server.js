@@ -1,8 +1,10 @@
+
 require('dotenv').config();
 const express = require('express');
 const bodyParser = require('body-parser');
 const cors = require('cors');
 const mongoose = require('mongoose');
+const bcrypt = require('bcryptjs');
 
 const app = express();
 const port = process.env.PORT;
@@ -11,7 +13,7 @@ const port = process.env.PORT;
 app.use(bodyParser.json());
 app.use(cors());
 
-// Connect to MongoDB (replace 'your_database_url' with your actual database URL)
+
 mongoose.connect('mongodb://127.0.0.1:27017/user_auth');
 const db = mongoose.connection;
 db.on('error', console.error.bind(console, 'MongoDB connection error:'));
@@ -22,6 +24,18 @@ const userSchema = new mongoose.Schema({
     email: String,
     password: String,
   })
+
+  //  adding paramter to user schema, 
+  userSchema.pre("save", async function(next) {
+    const user = this; 
+    if (user.isModified("password")) {
+      // hashing password with a factor of 8 (8 rounds)
+      //bcrypt automatically generates a unique salt for each pswd
+      user.password = await bcrypt.hash(user.password, 8); 
+    }
+    next(); 
+  })
+
 const User = mongoose.model('User', userSchema);
 
 // Define routes for login and sign-up
@@ -29,7 +43,7 @@ app.post('/login', async (req, res) => {
     const { email, password } = req.body;
     try {
         const user = await User.findOne({ email, password });
-        if (user) {
+        if (user && (await bcrypt.compare(password, user.password))) {
           res.json({ success: true, message: 'Login successful' });
         } else {
           res.status(401).json({ success: false, message: 'Invalid credentials' });
@@ -40,8 +54,8 @@ app.post('/login', async (req, res) => {
 });
 
 app.post('/signup',async  (req, res) => {
-    const { email, password, confirmPassword } = req.body;
-
+  const { email, password, confirmPassword } = req.body;
+ 
   try {
     // Check if password and confirmPassword match
     if (password !== confirmPassword) {
@@ -61,9 +75,9 @@ app.post('/signup',async  (req, res) => {
     if (existingUser) {
       return res.status(400).json({ success: false, message: 'Email already in use' });
     }
-
-    const newUser = new User({ email, password });
-    await newUser.save();
+ 
+  const newUser = new User({ email, password });
+  await newUser.save();
     res.json({ success: true, message: 'Sign-up successful' });
   } catch (error) {
     res.status(500).json({ success: false, message: 'Internal server error' });
