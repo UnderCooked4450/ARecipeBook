@@ -93,6 +93,10 @@
     }
   },
   "cli": {
+<<<<<<< HEAD
     "analytics": "f1342f95-b654-4031-a317-dca8fed9f1c7"
+=======
+    "analytics": false
+>>>>>>> 9b69d0a (Added camera page)
   }
 }
