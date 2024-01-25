@@ -1,13 +1,37 @@
+<link
+  rel="stylesheet"
+  href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css"
+/>
+
 <div class="container">
-    <div class="header">
-      <h1>Welcome to ARecipe</h1>
-      <button (click)="logout()">Logout</button>
-    </div>
-    <div class="features">
-      <button class="feature"></button>
-      <button class="feature"></button>
-      <button class="feature"></button>
-      <button class="feature"></button>
-    </div>
+  <div class="header">
+    <i class="fas fa-bars menu-icon"></i>
+    <button (click)="logout()">Logout</button>
   </div>
-  
+  <div class="search-feature">
+    <img
+      class="search-feature-picture"
+      src="../../assets/img/homePage-search-bar-image.png"
+      alt="Search Feature"
+    />
+    <input type="text" placeholder="beef and tomato" class="search-bar" />
+  </div>
+  <div class="function-buttons">
+    <button class="scan-ingredient-feature">
+      <i class="fas fa-camera camera-icon"></i>
+      <span class="scan-ingredient-feature-p">Scan Ingredient</span>
+    </button>
+
+    <button class="saved-recipes-feature">
+      <i class="fas fa-book-medical recipebook-icon"></i>
+      <span class="saved-recipes-feature-p">Saved Recipes</span>
+    </button>
+  </div>
+  <div class="random-picture-feature">
+    <img
+      class="search-feature-picture"
+      src="../../assets/img/homePage-random-meal-image.png"
+      alt="Search Feature"
+    />
+  </div>
+</div>
