@@ -31,7 +31,7 @@ const userSchema = new mongoose.Schema({
     if (user.isModified("password")) {
       // hashing password with a factor of 8 (8 rounds)
       //bcrypt automatically generates a unique salt for each pswd
-      user.password = await bcrypt.hash(user.password, 8); 
+      user.password = await bcrypt.hash(user.password, 10); 
     }
     next(); 
   })
@@ -42,11 +42,11 @@ const User = mongoose.model('User', userSchema);
 app.post('/login', async (req, res) => {
     const { email, password } = req.body;
     try {
-        const user = await User.findOne({ email, password });
+        const user = await User.findOne({ email });
         if (user && (await bcrypt.compare(password, user.password))) {
           res.json({ success: true, message: 'Login successful' });
         } else {
-          res.status(401).json({ success: false, message: 'Invalid credentials' });
+          res.status(401).json({ success: false, message: 'invalid credentials'});
         }
       } catch (error) {
         res.status(500).json({ success: false, message: 'Internal server error' });
