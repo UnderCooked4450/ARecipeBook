@@ -1,13 +1,15 @@
 <div class="container">
-    <div class="header">
-      <h1>Welcome to ARecipe</h1>
-      <button (click)="logout()">Logout</button>
-    </div>
-    <div class="features">
-      <button class="feature"></button>
-      <button class="feature"></button>
-      <button class="feature"></button>
-      <button class="feature"></button>
-    </div>
+  <div class="header">
+    <h1>Welcome to ARecipe</h1>
+    <button (click)="logout()">Logout</button>
   </div>
-  
+  <div class="features">
+    <button class="Camera">
+      Camera
+      <input type="file" accept="image/*" capture="environment" />
+    </button>
+    <button class="feature"></button>
+    <button class="feature"></button>
+    <button class="feature"></button>
+  </div>
+</div>

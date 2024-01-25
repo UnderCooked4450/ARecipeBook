@@ -6,8 +6,8 @@ import { RouterModule } from '@angular/router';
   selector: 'app-root',
   standalone: true,
   imports: [RouterModule],
-  templateUrl: './app.component.html',
-  styleUrls: ['./app.component.css'],
+  templateUrl: './app.component.html'
+  // styleUrls: ['./app.component.css'],
 })
 export class AppComponent {
   title = 'web-app';
