@@ -2,45 +2,56 @@ require('dotenv').config();
 const express = require('express');
 const bodyParser = require('body-parser');
 const cors = require('cors');
-const mongoose = require('mongoose');
+const { client, connectToMongoDB } = require('./mongodb.js');
+
+
+const { MongoClient ,ServerApiVersion } = require('mongodb');
 
 const app = express();
+
+async function run() {
+  try {
+    // Connect the client to the server	(optional starting in v4.7)
+    await client.connect();
+    // Send a ping to confirm a successful connection
+    await client.db("admin").command({ ping: 1 });
+    console.log("Pinged your deployment. You successfully connected to MongoDB!");
+  } catch (error) {
+    // Ensures that the client will close when you finish/error
+    await client.close();
+  }
+}
+run().catch(console.dir);
+
 const port = process.env.PORT;
-//const mdbURL = process.env.MONGODB_URL;
 
 app.use(bodyParser.json());
 app.use(cors());
 
-// Connect to MongoDB (replace 'your_database_url' with your actual database URL)
-mongoose.connect('mongodb://127.0.0.1:27017/user_auth');
-const db = mongoose.connection;
-db.on('error', console.error.bind(console, 'MongoDB connection error:'));
-
-
-// Define a user schema
-const userSchema = new mongoose.Schema({
-    email: String,
-    password: String,
-  })
-const User = mongoose.model('User', userSchema);
+// Use your existing MongoDB Atlas URI in the MongoClient constructor
 
 // Define routes for login and sign-up
 app.post('/login', async (req, res) => {
-    const { email, password } = req.body;
-    try {
-        const user = await User.findOne({ email, password });
-        if (user) {
-          res.json({ success: true, message: 'Login successful' });
-        } else {
-          res.status(401).json({ success: false, message: 'Invalid credentials' });
-        }
-      } catch (error) {
-        res.status(500).json({ success: false, message: 'Internal server error' });
-      }
+  const { email, password } = req.body;
+  try {
+    // Replace 'your_database_name' and 'your_collection_name' with your actual database and collection names
+    const database = client.db('user_auth');
+    const collection = database.collection('users');
+
+    const user = await collection.findOne({ email, password });
+    if (user) {
+      res.json({ success: true, message: 'Login successful' });
+    } else {
+      res.status(401).json({ success: false, message: 'Invalid credentials' });
+    }
+  } catch (error) {
+    res.status(500).json({ success: false, message: 'Internal server error' });
+  }
 });
 
-app.post('/signup',async  (req, res) => {
-    const { email, password, confirmPassword } = req.body;
+app.post('/signup', async (req, res) => {
+  
+  const { email, password, confirmPassword } = req.body;
 
   try {
     // Check if password and confirmPassword match
@@ -57,23 +68,25 @@ app.post('/signup',async  (req, res) => {
       });
     }
 
-    const existingUser = await User.findOne({ email });
+    await connectToMongoDB(); 
+    const database = client.db('user_auth');
+    const collection = database.collection('users');
+
+    const existingUser = await collection.findOne({ email });
     if (existingUser) {
       return res.status(400).json({ success: false, message: 'Email already in use' });
     }
 
-    const newUser = new User({ email, password });
-    await newUser.save();
+    await collection.insertOne({ email, password });
     res.json({ success: true, message: 'Sign-up successful' });
   } catch (error) {
+    console.error('Error during signup:', error);
     res.status(500).json({ success: false, message: 'Internal server error' });
   }
 });
 
 app.listen(port, () => {
-    console.log(`Server is running on http://localhost:${port}`);
-  }).on('error', (err) => {
-    console.error('Server start error:', err);
-  });
-  
-
+  console.log(`Server is running on http://localhost:${port}`);
+}).on('error', (err) => {
+  console.error('Server start error:', err);
+});
