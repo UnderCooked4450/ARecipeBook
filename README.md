@@ -26,12 +26,7 @@ cd ../server
 
 npm install dotenv
 
-7. Create an `.env` file in the server directory with the following contents:
-
-
-PORT=3000
-
-MONGODB_URI = mongodb+srv://admin:arecipe2024@arecipe.o6zx8ms.mongodb.net/?retryWrites=true&w=majority
+7. Create an `.env` file in the server directory with contents pinned in disc, channel sprint-updates
 
 ## Usage
 
