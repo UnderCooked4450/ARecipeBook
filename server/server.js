@@ -3,6 +3,7 @@ const express = require('express');
 const bodyParser = require('body-parser');
 const cors = require('cors');
 const { client, connectToMongoDB } = require('./mongodb.js');
+const bcrypt = require('bcryptjs'); // Require bcryptjs
 
 
 const { MongoClient ,ServerApiVersion } = require('mongodb');
@@ -28,18 +29,22 @@ const port = process.env.PORT;
 app.use(bodyParser.json());
 app.use(cors());
 
-// Use your existing MongoDB Atlas URI in the MongoClient constructor
 
-// Define routes for login and sign-up
+
 app.post('/login', async (req, res) => {
   const { email, password } = req.body;
   try {
-    // Replace 'your_database_name' and 'your_collection_name' with your actual database and collection names
     const database = client.db('user_auth');
     const collection = database.collection('users');
 
-    const user = await collection.findOne({ email, password });
-    if (user) {
+    const user = await collection.findOne({ email });
+    if (!user) {
+      return res.status(401).json({ success: false, message: 'Invalid credentials' });
+    }
+
+    // Compare the provided password with the hashed password stored in the database
+    const passwordMatch = await bcrypt.compare(password, user.password);
+    if (passwordMatch) {
       res.json({ success: true, message: 'Login successful' });
     } else {
       res.status(401).json({ success: false, message: 'Invalid credentials' });
@@ -48,7 +53,6 @@ app.post('/login', async (req, res) => {
     res.status(500).json({ success: false, message: 'Internal server error' });
   }
 });
-
 app.post('/signup', async (req, res) => {
   
   const { email, password, confirmPassword } = req.body;
@@ -58,6 +62,8 @@ app.post('/signup', async (req, res) => {
     if (password !== confirmPassword) {
       return res.status(400).json({ success: false, message: 'Passwords do not match' });
     }
+
+
     // Check password complexity (at least one letter, one number, and one symbol)
     const passwordRegex = /^(?=.*[A-Za-z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,}$/;
     if (!passwordRegex.test(password)) {
@@ -67,6 +73,9 @@ app.post('/signup', async (req, res) => {
           'Password must be at least 8 characters long and contain at least one letter, one number, and one special character.',
       });
     }
+    // Hash the password
+    const hashedPassword = await bcrypt.hash(password, 10); // 10 is the salt rounds
+
 
     await connectToMongoDB(); 
     const database = client.db('user_auth');
@@ -77,7 +86,7 @@ app.post('/signup', async (req, res) => {
       return res.status(400).json({ success: false, message: 'Email already in use' });
     }
 
-    await collection.insertOne({ email, password });
+    await collection.insertOne({ email, password: hashedPassword });
     res.json({ success: true, message: 'Sign-up successful' });
   } catch (error) {
     console.error('Error during signup:', error);
