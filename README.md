@@ -1,61 +1,50 @@
-# Capstone4450
+# ARecipe App
 
-## Project Setup and Installation Guide
+ARecipe is a web application built with Angular for the frontend and Node.js for the backend. This app allows users to get and save recipes to cook from leftovers in their home!
 
-Follow the steps below to set up and run the project:
+## Installation
 
-## Prerequisites
+1. Clone the repository:
 
-1. Make sure Node.js and npm are installed. Check by running:
-    ```bash
-    node -v
-    ```
+git clone <repository-url>
 
-2. Ensure MongoDB is installed. Refer to `textfiles/mongodb_setup.txt` for installation instructions.
+2. Navigate to the `web-app` directory:
 
-3. Verify MongoDB is running by checking MongoDB Compass or mongosh. Use the following command to see available databases:
-    ```bash
-    show dbs
-    ```
+cd web-app
 
-## Project Setup
+3. Install Angular CLI and project dependencies:
 
-4. Open a terminal and navigate to the `server` directory. Run the following command to install server dependencies:
-    ```bash
-    cd server
-    npm install
-    ```
+npm install -g @angular/cli
+npm install
 
-5. Open another terminal and navigate to the `web-app` directory. Run the following command to install web application dependencies:
-    ```bash
-    cd web-app
-    npm install
-    ```
 
-6. Ensure the Angular CLI is installed. Check by running:
-    ```bash
-    ng -v
-    ```
+4. Navigate to the `server` directory:
 
-## Running the Application
+cd ../server
 
-7. In the first terminal, start the Node.js server by running:
-    ```bash
-    node server.js
-    ```
+6. Install dotenv:
 
-8. In the second terminal, start the Angular application with:
-    ```bash
-    ng serve
-    ```
+npm install dotenv
 
-9. Open a web browser and navigate to `http://localhost:4200`. The application should be accessible.
+7. Create an `.env` file in the server directory with the following contents:
 
-## User Registration
 
-10. Sign up using your email and password on the provided form.
+PORT=3000
 
-11. Click the "Sign Up" button to complete the registration.
+MONGODB_URI = mongodb+srv://admin:arecipe2024@arecipe.o6zx8ms.mongodb.net/?retryWrites=true&w=majority
 
-You are now ready to use the application! Ensure MongoDB is up and running to avoid any issues.
+## Usage
 
+1. Start the server:
+
+node server.js
+
+2. In another terminal, navigate to the `web-app` directory:
+
+cd ../web-app
+
+3. Start the Angular development server:
+
+ng serve
+
+4. Open your browser and visit `http://localhost:4200` to access the application.
