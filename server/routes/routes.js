@@ -1,7 +1,15 @@
 const express = require('express');
 const Model = require('../model/model');
-
+const vision = require('@google-cloud/vision');
 const router = express.Router()
+const visionCreds= JSON.parse(process.env.VISION_CREDENTIALS)
+const visionConfig={
+    credentials:{
+        private_key: visionCreds.private_key,
+        client_email: visionCreds.client_email
+    }
+};
+const client = new vision.ImageAnnotatorClient(visionConfig);
 
 //Post Method
 router.post('/post', async (req, res) => {
@@ -80,6 +88,33 @@ router.get('/searchForIngredients/:ingredients', async (req, res) => {
         res.status(500).json({message: error.message})
     }
 })
+
+router.get('/lensapi',async (req,res)=>{   
+    // Performs label detection on the image file
+    try{
+        const [result]= await client.objectLocalization(req);
+        const objects = result.localizedObjectAnnotations;
+        let foods={}
+        const key="Food"
+        foods[key]=[]
+        objects.forEach(object => {
+            if(object.name!="Food")
+            {
+                let data={
+                    name:object.name,
+                    score:object.score
+                }
+                foods[key].push(data)
+            }
+        });
+
+        res.json(foods);
+    }
+    catch(error){
+        res.status(500).json({message: error.message})
+    }     
+})
+
 //Update by ID Method
 router.patch('/update/:id', (req, res) => {
     res.send('Update by ID API')
