@@ -9,10 +9,16 @@ import { Router } from '@angular/router';
   templateUrl: './home.component.html',
   styleUrl: './home.component.css'
 })
+
+
+
 export class HomeComponent {
 
-  constructor(private authService: AuthService, private router: Router) {}
   
+  constructor(private authService: AuthService, private router: Router) {
+    
+  }
+
   logout() {
     this.authService.logout().subscribe({
       next: value => {
@@ -24,5 +30,9 @@ export class HomeComponent {
         // Handle logout error
       }
     });
+  }
+  addIngredient() {
+    this.router.navigate(['/ingredientsPage']);
+    console.log("ingredient button pushed");
   }
 }

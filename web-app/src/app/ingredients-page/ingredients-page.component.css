@@ -1,0 +1,168 @@
+
+body {
+    font-family: 'Poppins', sans-serif;
+    background-color: #F7F6F3;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
+    margin: 0; 
+  }
+  .container {
+    text-align: center;
+    padding: 20px;
+    border-radius: 15px;
+    background: #FFFFFF;
+    width: 80%;
+    max-width: 400px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    margin: auto; 
+  }
+  
+  .header {
+    padding: 20px;
+    display: flex;
+    color: #4A4A4A;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 20px;
+  }
+  
+  .menu-icon{
+    color: black;
+    font-size: 24px; /* Example style */
+    cursor: pointer;
+  }
+  
+  .search-feature {
+    position: relative;
+    margin-bottom: 20px;
+  }
+  
+  .search-feature-picture {
+    width: 90%;
+    height: auto;
+    border-radius: 10px;
+  }
+  
+  .search-bar {
+    position: absolute;
+    bottom: 10px;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 80%;
+    padding: 8px;
+    border: 2px solid #E9917E;
+    border-radius: 20px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  }
+  
+  .function-buttons {
+    display: flex;
+    justify-content: space-around;
+    margin-top: 20px;
+  }
+  
+  .feature {
+    background-color: #E9917E;
+    padding: 15px;
+    border-radius: 8px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    color: white;
+    
+  }
+  
+  .scan-ingredient-feature, .saved-recipes-feature {
+    width: 120px;
+    height: 120px;
+    
+  }
+  .scan-ingredient-feature-p,.saved-recipes-feature-p{
+    font-size: 9px;
+    justify-content: center;
+    align-items: center;
+  }
+  .row {
+    margin-bottom: 20px;
+    cursor: pointer;
+  }
+  .camera-icon{
+    margin-top: 5px;
+    font-size: 70px; 
+    margin-bottom: 10px
+  }
+  .recipebook-icon{
+    margin-top: 5px;
+    font-size: 70px;  
+    margin-bottom: 10px
+  }
+  .logout-button {
+   
+    flex-direction: column; 
+    background-color: #f88f78;
+    color: white;
+    border: none;
+    padding: 15px 20px;
+    border-radius: 15px;
+    cursor: pointer;
+    outline: none;
+    transition: background-color 0.3s ease;
+    display: flex;
+    align-items: center
+  
+  }
+
+  .generateRecipesButton {
+    flex-direction: column; 
+    background-color: #f88f78;
+    color: white;
+    border: none;
+    padding: 15px 20px;
+    border-radius: 15px;
+    cursor: pointer;
+    outline: none;
+    transition: background-color 0.3s ease;
+    display: flex;
+    align-items: center
+  
+
+  }
+
+  button {
+   
+    flex-direction: column; 
+    background-color: #f88f78;
+    color: white;
+    border: none;
+    padding: 0px 0px;
+    border-radius: 15px;
+    cursor: pointer;
+    outline: none;
+    transition: background-color 0.3s ease;
+    display: flex;
+    align-items: center
+  
+  }
+  
+  button:hover {
+    background-color: #cf4865;
+  }
+  
+  
+  .random-picture-feature {
+    margin-top: 20px;
+    width: 100%;
+    height: 200px;
+    border-radius: 10px;
+    overflow: hidden;
+  }
+  
+  .trending-food-feature {
+    display: inline-block;
+    position: relative;
+    width: 100%;
+    height: 100%;
+    background-size: cover;
+    background-position: center;
+  }
+  
