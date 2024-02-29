@@ -6,7 +6,7 @@
     <title>Camera</title>
   </head>
   <body>
-    <div>
+    <div style="text-align: center">
       <webcam
         [height]="500"
         [width]="500"
@@ -34,20 +34,16 @@
       >
         Next Webcam
       </button>
-      <!-- <input id="cameraSwitchCheckbox" type="checkbox" [(ngModel)]="allowCameraSwitch"><label for="cameraSwitchCheckbox">Allow Camera Switch</label> -->
-      <br />
-      DeviceId:
       <input
-        id="deviceId"
-        type="text"
-        [(ngModel)]="deviceId"
-        style="width: 500px"
-      />
-      <button (click)="showNextWebcam(deviceId)">Activate</button>
+        id="cameraSwitchCheckbox"
+        type="checkbox"
+        [(ngModel)]="allowCameraSwitch"
+      /><label for="cameraSwitchCheckbox">Allow Camera Switch</label>
+      <br />
     </div>
 
-    <div class="snapshot" *ngIf!="webcamImage">
-      <img [src]!="webcamImage.imageAsDataUrl" />
+    <div>
+      <img [src]="webcamImage?.imageAsDataUrl" />
     </div>
   </body>
 </html>

@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { Subject, Observable } from 'rxjs';
+import { Subject, Observable, Observer } from 'rxjs';
 import { Router } from '@angular/router';
 import { WebcamModule } from 'ngx-webcam';
 import { FormsModule } from '@angular/forms';
@@ -28,7 +28,7 @@ export class CameraPageComponent implements OnInit {
   public errors: WebcamInitError[] = [];
 
   // latest snapshot
-  public webcamImage: WebcamImage | undefined;
+  public webcamImage: any;
 
   // webcam snapshot trigger
   private trigger: Subject<void> = new Subject<void>();
@@ -36,6 +36,8 @@ export class CameraPageComponent implements OnInit {
   private nextWebcam: Subject<boolean | string> = new Subject<
     boolean | string
   >();
+
+  sysImage = '';
 
   public ngOnInit(): void {
     WebcamUtil.getAvailableVideoInputs().then(
@@ -46,7 +48,7 @@ export class CameraPageComponent implements OnInit {
   }
 
   public triggerSnapshot(): void {
-    this.trigger.next();
+    this.trigger.next(void 0);
   }
 
   public toggleWebcam(): void {
@@ -66,7 +68,10 @@ export class CameraPageComponent implements OnInit {
 
   public handleImage(webcamImage: WebcamImage): void {
     console.info('received webcam image', webcamImage);
-    this.webcamImage = webcamImage as WebcamImage;
+    this.webcamImage = webcamImage;
+    this.sysImage = webcamImage!.imageAsDataUrl;
+    console.info('got webcam image', this.sysImage);
+    console.log(this.webcamImage.imageAsDataUrl);
   }
 
   public cameraWasSwitched(deviceId: string): void {
