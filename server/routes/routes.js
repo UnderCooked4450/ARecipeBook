@@ -1,3 +1,4 @@
+require('dotenv').config();
 const express = require('express');
 const Model = require('../model/model');
 const vision = require('@google-cloud/vision');
@@ -94,6 +95,13 @@ router.get('/lensapi',async (req,res)=>{
     try{
         const [result]= await client.objectLocalization(req);
         const objects = result.localizedObjectAnnotations;
+        objects.forEach(object => {
+            console.log(`Name: ${object.name}`);
+            console.log(`Confidence: ${object.score}`);
+            const vertices = object.boundingPoly.normalizedVertices;
+            vertices.forEach(v => console.log(`x: ${v.x}, y:${v.y}`));
+          });
+
         let foods={}
         const key="Food"
         foods[key]=[]
@@ -107,12 +115,12 @@ router.get('/lensapi',async (req,res)=>{
                 foods[key].push(data)
             }
         });
-
-        res.json(foods);
+    
+        console.log(foods);
     }
     catch(error){
-        res.status(500).json({message: error.message})
-    }     
+        console.log(error)
+    }
 })
 
 //Update by ID Method
