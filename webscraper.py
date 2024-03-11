@@ -1,6 +1,6 @@
 from recipe_scrapers import scrape_me
 
-scraper = scrape_me("https://www.recipetineats.com/spaghetti-bolognese/")
+scraper = scrape_me("https://www.allrecipes.com/recipe/16167/beef-bourguignon-i/")
 
 title, time, yields, ingredients, instructions, nutrients = (scraper.title(),
                                                              scraper.total_time(),

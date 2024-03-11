@@ -1,0 +1,14 @@
+<div class="container">
+    <div class="search-feature">
+      <input type="text" placeholder="Search new ingredient" class="search-bar" [(ngModel)]="newIngredient" (keyup.enter)="searchNewIngredient()" />
+      <button (click)="searchNewIngredient()">Search</button>
+    </div>
+    <div class="ingredients-container">
+      <h2>Ingredients List</h2>
+      <ul>
+        <li *ngFor="let ingredient of ingredients">{{ ingredient }}</li>
+      </ul>
+    </div>
+    <button (click)="goBack()">Back to Home</button>
+  </div>
+  

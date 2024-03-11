@@ -14,7 +14,9 @@
       src="../../assets/img/homePage-search-bar-image.png"
       alt="Search Feature"
     />
-    <input type="text" placeholder="beef and tomato" class="search-bar" />
+    <input type="text" placeholder="what ingredients do you have today?" class="search-bar" (keyup.enter)="searchRecipes()"  />
+    <!-- need to add a button instead of click "return" button -->
+    <!-- <button (click)="navigateToIngredients()">View Ingredients</button> -->
   </div>
   <div class="function-buttons">
     <button class="scan-ingredient-feature">
@@ -33,5 +35,14 @@
       src="../../assets/img/homePage-random-meal-image.png"
       alt="Search Feature"
     />
+  </div>
+  <!-- Recipes display section -->
+  <div class="recipes-section" *ngIf="recipes.length > 0">
+    <h2>Recipes Found:</h2>
+    <div class="recipe" *ngFor="let recipe of recipes">
+      <h3>{{ recipe.title }}</h3>
+      <img src="{{ recipe.image }}" alt="{{ recipe.title }}" width="100">
+      <p>Ingredients: {{ recipe.usedIngredientCount }} used, {{ recipe.missedIngredientCount }} missing</p>
+    </div>
   </div>
 </div>
