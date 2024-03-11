@@ -112,6 +112,23 @@ body {
   
   }
 
+  .addIngredientButton {
+    flex-direction: column; 
+    background-color: #f88f78;
+    color: white;
+    border: none;
+    padding: 15px 20px;
+    border-radius: 15px;
+    cursor: pointer;
+    outline: none;
+    transition: background-color 0.3s ease;
+    display: flex;
+    align-items: center
+  
+
+  }
+
+
   .generateRecipesButton {
     flex-direction: column; 
     background-color: #f88f78;

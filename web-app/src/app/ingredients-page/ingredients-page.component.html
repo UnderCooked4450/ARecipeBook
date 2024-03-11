@@ -1,4 +1,4 @@
-<p>ingredients-page works!</p>
+
 <link
   rel="stylesheet"
   href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css"
@@ -7,6 +7,33 @@
 <div class="container"> 
 
     <div class="random-picture-feature">
+        <label for="ingredientInput">Ingredient Name:</label>
+        <!--<input type="email" placeholder="Email Address" required [(ngModel)]="loginEmail" name="loginEmail">-->
+        <input type="text" placeholder="Banana" required [(ngModel)]="ingredientInput"  id="ingredientInput" name="ingredientInput" value="Banana">
+        <br>
+
+        <label for="quantityInput">Quantity:</label>
+        <input type="number" placeholder="0" required [(ngModel)]="quantityInput" id="quantityInput" name="quantityInput" value="3">
+        <!--drop down menu id="quantityType"-->
+        <br>
+
+        <label for="quantityType">Quantity Type:</label>
+        <select required [(ngModel)]="quantityType" id="quantityType" name="quantityType">
+            <option value="items">Items</option>
+            <option value="lbs">Lbs</option>
+            <option value="kg">Kg</option>
+            <option value="l">L</option>
+            <option value="g">Gal</option>
+        </select>
+        <br> 
+
+        <button class="addIngredientButton" (click)="addIngredient()">
+            Add Ingredient
+        </button>
+        <li>
+            
+        </li>
+
         <button class="generateRecipesButton" (click)="generateRecipes()">
           Generate Recipes
         </button>
