@@ -35,11 +35,30 @@ export class IngredientsPageComponent {
       //validate input
       this.ingredientValid = this.validateInput(ingredient.ingredientName, ingredient.quantity, ingredient.quantityType)
 
-
-
       if (this.ingredientValid) {
-        //if valid, add ingredient to the list
+        // Check if the ingredient with the same name and quantityType already exists
+        const existingIngredientIndex = this.ingredientList.findIndex(
+          (existingIngredient) =>
+            existingIngredient.ingredientName === ingredient.ingredientName && existingIngredient.quantityType === ingredient.quantityType
+        );
+
+        //if found
+        if (existingIngredientIndex !== -1) {
+          //update quantity
+          this.ingredientList[existingIngredientIndex].quantity += ingredient.quantity;
+        }
+        else {
+          //if valid, add ingredient to the list
         this.ingredientList.push(ingredient)
+        }
+
+        // Clear input fields after adding/updating the ingredient
+        /*
+        this.ingredientInput = '';
+        this.quantityInput = 0;
+        this.quantityType = '';
+        //*/
+        
         //redraw the table of ingredients
         //happens automatically thanks to 2 way data binding in angular
       }
