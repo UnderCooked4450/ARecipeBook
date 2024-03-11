@@ -6,7 +6,7 @@
 
 <div class="container"> 
 
-    <div class="random-picture-feature">
+    <div >
         <label for="ingredientInput">Ingredient Name:</label>
         <!--<input type="email" placeholder="Email Address" required [(ngModel)]="loginEmail" name="loginEmail">-->
         <input type="text" placeholder="Banana" required [(ngModel)]="ingredientInput"  id="ingredientInput" name="ingredientInput" value="Banana">
@@ -19,6 +19,7 @@
 
         <label for="quantityType">Quantity Type:</label>
         <select required [(ngModel)]="quantityType" id="quantityType" name="quantityType">
+            
             <option value="items">Items</option>
             <option value="lbs">Lbs</option>
             <option value="kg">Kg</option>
@@ -30,9 +31,29 @@
         <button class="addIngredientButton" (click)="addIngredient()">
             Add Ingredient
         </button>
-        <li>
-            
-        </li>
+        <div id="ingredientList" class = "ingredientTable">
+            <table>
+                <thead>
+                  <tr>
+                    <th>Ingredient</th>
+                    <th>Quantity</th>
+                    <th>Quantity Type</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr *ngFor="let ingredient of ingredientList">
+                    <td>{{ ingredient.ingredientName }}</td>
+                    <td>{{ ingredient.quantity }}</td>
+                    <td>{{ ingredient.quantityType }}</td>
+                  </tr>
+                  <tr class="emptyRow">
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                  </tr>
+                </tbody>
+              </table>
+        </div>
 
         <button class="generateRecipesButton" (click)="generateRecipes()">
           Generate Recipes
