@@ -20,6 +20,11 @@ body {
     background-color: #f88f78;
   }
 
+  .ingredientTable {
+    overflow: auto;
+    max-height: 450px;
+  }
+
   th {
     
     background-color: #f2f2f2;

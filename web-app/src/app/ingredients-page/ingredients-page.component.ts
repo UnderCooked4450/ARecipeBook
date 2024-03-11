@@ -35,7 +35,7 @@ export class IngredientsPageComponent {
       //validate input
       this.ingredientValid = this.validateInput(ingredient.ingredientName, ingredient.quantity, ingredient.quantityType)
 
-//??? should we add more quantity types (ml, g, etc.) and automatic type conversion ???
+
 
       if (this.ingredientValid) {
         //if valid, add ingredient to the list
@@ -60,8 +60,8 @@ export class IngredientsPageComponent {
       alert("Quantity must be greater than 0")
       return false;
     }
-    else if (quantity >= 1000) {
-      alert("Quantity must be less than 1000")//better suggestions for 1000?
+    else if (quantity >= 5000) {
+      alert("Quantity must be less than 5000")//better suggestions for 1000?
       return false;
     }
     else if (quantityType.length == 0) {
