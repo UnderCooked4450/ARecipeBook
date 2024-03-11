@@ -7,7 +7,11 @@ import { RouterModule } from '@angular/router';
   standalone: true,
   imports: [RouterModule],
   templateUrl: './app.component.html'
+
   // ,styleUrls: ['./app.component.css'],
+  // styleUrls: ['./app.component.css'],
+
+  // styleUrls: ['./app.component.css'],
 })
 export class AppComponent {
   title = 'web-app';

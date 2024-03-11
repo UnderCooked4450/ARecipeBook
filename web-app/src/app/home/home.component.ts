@@ -25,4 +25,8 @@ export class HomeComponent {
       }
     });
   }
+
+  camera() {
+    this.router.navigate(['/camera']);
+  }
 }
