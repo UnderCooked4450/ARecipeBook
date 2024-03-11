@@ -15,27 +15,56 @@ export class IngredientsPageComponent {
   }
   
   ingredientInput = ''; 
-  quantityInput = '';//default vars for input
+  quantityInput = 0;//default vars for input
   quantityType = '';
 
+  ingredientValid = true;
+
   addIngredient() {
-    //display input fields
-      //name, quantity, drop down quantity-type
       //access name field, quantity field, drop down value
-      //ensure non-null and valid input
       const ingredient = {
-        name: this.ingredientInput, // Get from the form input
+        name: this.ingredientInput,
         quantity: this.quantityInput, // Get from the form input
         quantityType: this.quantityType
       };
-     /* if (ingredient.name == null) {
+      //validate input
+      this.ingredientValid = this.validateInput(ingredient.name, ingredient.quantity, ingredient.quantityType)
 
-      }*/
-      console.log(
-        "ingredient name: " + ingredient.name + 
-        "\nquantity: " + ingredient.quantity + 
-        "\nquantity type: " + ingredient.quantityType
-      )
+//should we add more quantity types (ml, g, etc.) and automatic type conversion?
+
+
+      if (this.ingredientValid) {
+        console.log(
+          "ingredient name: " + ingredient.name + 
+          "\nquantity: " + ingredient.quantity + 
+          "\nquantity type: " + ingredient.quantityType
+        )
+      }
+  }
+
+  validateInput(ingredientName: string, quantity: number, quantityType: string) {
+    if (ingredientName.length == 0) {
+      alert("Ingredient Name cannot be empty")
+      return false;
+    }
+    else if (ingredientName.length > 20) {
+      alert("Ingredient Name cannot exceed 20 characters")
+      return false;
+    }
+    //check for empty characters in name?
+    else if (quantity <= 0) {
+      alert("Quantity must be greater than 0")
+      return false;
+    }
+    else if (quantity >= 1000) {
+      alert("Quantity must be less than 1000")//better suggestions for 1000?
+      return false;
+    }
+    else if (quantityType.length == 0) {
+      alert("Quantity Type must be selected")
+      return false;
+    }
+    return true;
   }
 
   generateRecipes() {
