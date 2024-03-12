@@ -6,6 +6,11 @@
 
 <div class="container"> 
 
+    <div *ngIf="editedIngredientIndex !== null" class="editingNotification">
+        <label>
+          Editing Ingredient: {{ ingredientList[editedIngredientIndex].ingredientName }}
+        </label>
+      </div>
     <div >
         <label for="ingredientInput">Ingredient Name:</label>
         <!--<input type="email" placeholder="Email Address" required [(ngModel)]="loginEmail" name="loginEmail">-->
@@ -29,7 +34,7 @@
         <br> 
 
         <button class="addIngredientButton" (click)="addIngredient()">
-            Add Ingredient
+            {{ editedIngredientIndex !== null ? 'Complete Edit' : 'Add Ingredient' }}
         </button>
         <div id="ingredientList" class = "ingredientTable">
             <table>
@@ -38,15 +43,25 @@
                     <th>Ingredient</th>
                     <th>Quantity</th>
                     <th>Quantity Type</th>
+                    <th>Modify</th>
                   </tr>
                 </thead>
                 <tbody>
-                  <tr *ngFor="let ingredient of ingredientList">
+                  <tr *ngFor="let ingredient of ingredientList; let i = index">
                     <td>{{ ingredient.ingredientName }}</td>
                     <td>{{ ingredient.quantity }}</td>
                     <td>{{ ingredient.quantityType }}</td>
+                    <td>
+                        <button class="editIngredientButton" (click)="editIngredient(i)">
+                            Edit
+                        </button>
+                        <button class="deleteIngredientButton" (click)="deleteIngredient(i)">
+                            Delete
+                        </button>
+                    </td>
                   </tr>
                   <tr class="emptyRow">
+                    <td></td>
                     <td></td>
                     <td></td>
                     <td></td>

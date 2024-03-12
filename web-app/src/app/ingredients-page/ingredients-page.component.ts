@@ -11,9 +11,11 @@ import { CommonModule } from '@angular/common';
   styleUrl: './ingredients-page.component.css'
 })
 export class IngredientsPageComponent {
-  //quantityType: string | null = null;
+  
   ingredientList: {ingredientName: string, quantity: number, quantityType: string}[];
-  //listContainer: HTMLElement | null;
+  editedIngredientIndex: number | null = null;
+  deletedIngredientIndex: number | null = null;
+  
 
   constructor(private router: Router) {
     this.ingredientList = [];
@@ -36,32 +38,41 @@ export class IngredientsPageComponent {
       this.ingredientValid = this.validateInput(ingredient.ingredientName, ingredient.quantity, ingredient.quantityType)
 
       if (this.ingredientValid) {
-        // Check if the ingredient with the same name and quantityType already exists
-        const existingIngredientIndex = this.ingredientList.findIndex(
-          (existingIngredient) =>
-            existingIngredient.ingredientName === ingredient.ingredientName && existingIngredient.quantityType === ingredient.quantityType
-        );
-
-        //if found
-        if (existingIngredientIndex !== -1) {
-          //update quantity
-          this.ingredientList[existingIngredientIndex].quantity += ingredient.quantity;
-        }
+        if (this.editedIngredientIndex !==null) {
+          //update existing ingredient
+          this.ingredientList[this.editedIngredientIndex] = ingredient;
+          //reset value
+          this.editedIngredientIndex = null;
+        } 
         else {
-          //if valid, add ingredient to the list
-        this.ingredientList.push(ingredient)
-        }
-
-        // Clear input fields after adding/updating the ingredient
-        /*
-        this.ingredientInput = '';
-        this.quantityInput = 0;
-        this.quantityType = '';
-        //*/
+          // Check if the ingredient with the same name and quantityType already exists
+          const existingIngredientIndex = this.ingredientList.findIndex(
+            (existingIngredient) =>
+              existingIngredient.ingredientName === ingredient.ingredientName && existingIngredient.quantityType === ingredient.quantityType
+          );
         
-        //redraw the table of ingredients
-        //happens automatically thanks to 2 way data binding in angular
+
+          //if found
+          if (existingIngredientIndex !== -1) {
+            //update quantity
+            this.ingredientList[existingIngredientIndex].quantity += ingredient.quantity;
+          }
+          else {
+            //if valid, add ingredient to the list
+          this.ingredientList.push(ingredient)
+          }
+
+          // Clear input fields after adding/updating the ingredient
+          /*
+          this.ingredientInput = '';
+          this.quantityInput = 0;
+          this.quantityType = '';
+          //*/
+          
+          //redraw the table of ingredients
+          //happens automatically thanks to 2 way data binding in angular
       }
+    }
   }
 
   //pretty self explanantory
@@ -88,6 +99,21 @@ export class IngredientsPageComponent {
       return false;
     }
     return true;
+  }
+
+  editIngredient(index: number) {
+    //set the values of the ingredient being edited to the input fields
+    const editedIngredient = this.ingredientList[index];
+    this.ingredientInput = editedIngredient.ingredientName;
+    this.quantityInput = editedIngredient.quantity;
+    this.quantityType = editedIngredient.quantityType;
+    this.editedIngredientIndex = index;
+
+  }
+
+  deleteIngredient(index: number) {
+    this.deletedIngredientIndex = index;
+    this.ingredientList.splice(index, 1);
   }
 
   generateRecipes() {
