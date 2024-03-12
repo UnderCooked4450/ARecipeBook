@@ -114,6 +114,7 @@ export class IngredientsPageComponent {
   deleteIngredient(index: number) {
     this.deletedIngredientIndex = index;
     this.ingredientList.splice(index, 1);
+    this.editedIngredientIndex = null;
   }
 
   generateRecipes() {

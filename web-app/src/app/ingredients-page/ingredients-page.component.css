@@ -31,6 +31,10 @@ body {
     margin-bottom: 10px;
   }
 
+  .editIngredientButton, .deleteIngredientButton {
+    padding: 1px;
+  }
+
   table {
     margin: auto;
     min-height: 80px;
