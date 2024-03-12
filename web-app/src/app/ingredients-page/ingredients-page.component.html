@@ -10,7 +10,7 @@
         <label>
           Editing Ingredient: {{ ingredientList[editedIngredientIndex].ingredientName }}
         </label>
-      </div>
+    </div>
     <div >
         <label for="ingredientInput">Ingredient Name:</label>
         <!--<input type="email" placeholder="Email Address" required [(ngModel)]="loginEmail" name="loginEmail">-->
@@ -52,12 +52,12 @@
                     <td>{{ ingredient.quantity }}</td>
                     <td>{{ ingredient.quantityType }}</td>
                     <td>
-                        <button class="editIngredientButton" (click)="editIngredient(i)">
-                            Edit
-                        </button>
-                        <button class="deleteIngredientButton" (click)="deleteIngredient(i)">
-                            Delete
-                        </button>
+                        <a class="editIngredientButton" (click)="editIngredient(i)">
+                            <img class="image" src="../../assets/img/editIcon.png" alt="Edit">
+                        </a>
+                        <a class="deleteIngredientButton" (click)="deleteIngredient(i)">
+                            <img class="image" src="../../assets/img/deleteIcon.png" alt="Delete">
+                        </a>
                     </td>
                   </tr>
                   <tr class="emptyRow">

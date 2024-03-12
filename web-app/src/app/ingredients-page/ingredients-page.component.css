@@ -133,6 +133,14 @@ body {
     margin: auto; 
     box-shadow:  35px 35px 70px #f2f2f2,
            -35px -35px 70px #ffffff;
+           /*
     display: flex;
-    justify-content: space-between;
+    justify-content: space-between;*/
   }  
+
+  .image {
+    width: 20px;
+    height: 20px;
+  }
+
+  
