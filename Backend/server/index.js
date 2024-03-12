@@ -3,6 +3,8 @@ const mongoose = require('mongoose');
 const routes = require('./routes/routes');
 require('dotenv').config();
 
+const recipeRoutes = require('./recipeRoutes');
+app.use('/api', recipeRoutes);x
 
 const app = express();
 

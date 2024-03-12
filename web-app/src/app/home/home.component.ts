@@ -15,7 +15,11 @@ import { FormsModule } from '@angular/forms';
 export class HomeComponent {
   searchInput: string = 'beef';
   apiKey: string = 'a0c0c92106a74b308374f32d0c0d4a3c';
+  recipe: any;
+  searchQuery: string = '';
+  
   recipes: any[] = [];
+
 
   constructor(private authService: AuthService, private router: Router, private http: HttpClient) {}
   
@@ -31,24 +35,40 @@ export class HomeComponent {
       }
     });
   }
+
+  //implement webscraper
   searchRecipes(): void {
-    const url = `https://api.spoonacular.com/recipes/findByIngredients?ingredients=${this.searchInput}&apiKey=${this.apiKey}`;
-    
-    this.http.get<any[]>(url)
-      .subscribe(
-        data => {
-          this.recipes = data;
-        },
-        error => {
-          if(error.status ===401){
-            console.error("unauthorizeed request. Please check your API key");
-    
-          }else{
-          console.error('Error fetching data:', error);
-        }
-        }
-      );
+    this.http.get<any[]>(`http://localhost:3000/search_recipes?q=${this.searchQuery}`).subscribe({
+      next: (data) => {
+        this.recipes = data;  
+      },
+      error: (error) => {
+        console.error('There was an error!', error);
+      }
+    });
   }
+  
+
+
+
+  // searchRecipes(): void {
+  //   const url = `https://api.spoonacular.com/recipes/findByIngredients?ingredients=${this.searchInput}&apiKey=${this.apiKey}`;
+    
+  //   this.http.get<any[]>(url)
+  //     .subscribe(
+  //       data => {
+  //         this.recipes = data;
+  //       },
+  //       error => {
+  //         if(error.status ===401){
+  //           console.error("unauthorizeed request. Please check your API key");
+    
+  //         }else{
+  //         console.error('Error fetching data:', error);
+  //       }
+  //       }
+  //     );
+  // }
   navigateToIngredients() {
     this.router.navigate(['/ingredients']);
   }

@@ -3,10 +3,7 @@ const express = require('express');
 const bodyParser = require('body-parser');
 const cors = require('cors');
 const { client, connectToMongoDB } = require('./mongodb.js');
-
-
 const { MongoClient ,ServerApiVersion } = require('mongodb');
-
 const app = express();
 
 async function run() {
@@ -90,3 +87,5 @@ app.listen(port, () => {
 }).on('error', (err) => {
   console.error('Server start error:', err);
 });
+
+

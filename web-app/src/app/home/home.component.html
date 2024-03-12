@@ -14,7 +14,11 @@
       src="../../assets/img/homePage-search-bar-image.png"
       alt="Search Feature"
     />
-    <input type="text" placeholder="what ingredients do you have today?" class="search-bar" (keyup.enter)="searchRecipes()"  />
+    <!-- <input type="text" placeholder="what ingredients do you have today?" class="search-bar" (keyup.enter)="searchRecipes()"  /> -->
+   
+    <!-- use the webscraper -->
+    <input type="text" [(ngModel)]="searchQuery" placeholder="What ingredients do you have today?" class="search-bar" (keyup.enter)="searchRecipes()" />
+
     <!-- need to add a button instead of click "return" button -->
     <!-- <button (click)="navigateToIngredients()">View Ingredients</button> -->
   </div>
@@ -36,13 +40,24 @@
       alt="Search Feature"
     />
   </div>
-  <!-- Recipes display section -->
-  <div class="recipes-section" *ngIf="recipes.length > 0">
     <h2>Recipes Found:</h2>
     <div class="recipe" *ngFor="let recipe of recipes">
       <h3>{{ recipe.title }}</h3>
       <img src="{{ recipe.image }}" alt="{{ recipe.title }}" width="100">
       <p>Ingredients: {{ recipe.usedIngredientCount }} used, {{ recipe.missedIngredientCount }} missing</p>
     </div>
+    <div class="recipes-section" *ngIf="recipes && recipes.length > 0">
+      <h2>Recipes Found:</h2>
+      <div class="recipe" *ngFor="let recipe of recipes">
+        <h3>{{ recipe.title }}</h3>
+        <img src="{{ recipe.image }}" alt="{{ recipe.title }}" width="100">
+        <p>{{ recipe.description }}</p> <!-- Modify as per your recipe object structure -->
+        <!-- Displaying Ingredients assuming your recipe object has such property -->
+        <ul>
+          <li *ngFor="let ingredient of recipe.ingredients">{{ ingredient }}</li>
+        </ul>
+        <!-- Example to display instructions if available -->
+        <p>{{ recipe.instructions }}</p>
+      </div>
   </div>
 </div>
