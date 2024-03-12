@@ -38,9 +38,9 @@
         </button>
         <div id="ingredientList" class = "ingredientTable">
             <table>
-                <thead>
-                  <tr>
-                    <th>Ingredient</th>
+                <thead class="headers">
+                  <tr >
+                    <th class="ingredientColumn">Ingredient</th>
                     <th>Quantity</th>
                     <th>Quantity Type</th>
                     <th>Modify</th>
@@ -48,7 +48,7 @@
                 </thead>
                 <tbody>
                   <tr *ngFor="let ingredient of ingredientList; let i = index">
-                    <td>{{ ingredient.ingredientName }}</td>
+                    <td class="ingredientColumn">{{ ingredient.ingredientName }}</td>
                     <td>{{ ingredient.quantity }}</td>
                     <td>{{ ingredient.quantityType }}</td>
                     <td>
