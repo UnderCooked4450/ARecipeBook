@@ -36,16 +36,30 @@ export class IngredientsPageComponent {
       };
       //validate input
       this.ingredientValid = this.validateInput(ingredient.ingredientName, ingredient.quantity, ingredient.quantityType)
-
+      
+      //if valid
       if (this.ingredientValid) {
+        //if in editing mode for an ingredient
         if (this.editedIngredientIndex !==null) {
-          
-            //update existing ingredient
-            this.ingredientList[this.editedIngredientIndex] = ingredient;
-            //reset value
-            this.editedIngredientIndex = null;
-          
-        } 
+            //check iff new name, quantityType also refer to an existing ingredient
+            let existingIngredientIndex = this.ingredientList.findIndex(
+              (existingIngredient) =>
+                existingIngredient.ingredientName === ingredient.ingredientName && existingIngredient.quantityType === ingredient.quantityType
+            );
+            if (existingIngredientIndex !== -1 && existingIngredientIndex !== this.editedIngredientIndex) {
+              alert("Two ingredients with the same name, quantity type found. Please delete one and update the other")
+              existingIngredientIndex = -1;
+            }
+            //else, if new name, quantityType are unique
+            else {
+              //update existing ingredient
+              this.ingredientList[this.editedIngredientIndex] = ingredient;
+              //reset value
+              this.editedIngredientIndex = null;
+            }
+        }
+
+        //if not in editing mode for an ingredient
         else {
           // Check if the ingredient with the same name and quantityType already exists
           const existingIngredientIndex = this.ingredientList.findIndex(
@@ -110,6 +124,10 @@ export class IngredientsPageComponent {
       return false;
     }
     return true;
+  }
+
+  cancelEdit() {
+    this.editedIngredientIndex = null;
   }
 
   editIngredient(index: number) {

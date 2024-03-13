@@ -8,7 +8,7 @@
 
     <div *ngIf="editedIngredientIndex !== null" class="editingNotification">
         <label>
-          Editing Ingredient: {{ ingredientList[editedIngredientIndex].ingredientName }}
+          Editing Ingredient: {{ ingredientList[editedIngredientIndex].ingredientName }}, {{ingredientList[editedIngredientIndex].quantity}} {{ingredientList[editedIngredientIndex].quantityType}}
         </label>
     </div>
     <div >
@@ -40,12 +40,23 @@
           <br> 
           </div>
       </div>
-
-        <button class="addIngredientButton" (click)="addIngredient()">
-            {{ editedIngredientIndex !== null ? 'Complete Edit' : 'Add Ingredient' }}
-        </button>
+      <!--need to make visible only if editedIngredientIndex !==null-->
+      <table class="buttonTable">
+        <tr>
+          <td class="buttonTableRow">
+            <button *ngIf="editedIngredientIndex !== null" class="cancelEditButton" (click)="cancelEdit()">
+                Cancel Edit
+            </button>
+          </td>
+          <td class="buttonTableRow">
+            <button class="addIngredientButton" (click)="addIngredient()">
+                {{ editedIngredientIndex !== null ? 'Complete Edit' : 'Add Ingredient' }}
+            </button>
+          </td>
+        </tr>
+      </table>  
         <div id="ingredientList" class = "ingredientTable">
-            <table>
+            <table class="ingredientsTable">
                 <thead class="headers">
                   <tr >
                     <th class="ingredientColumn">Ingredient</th>

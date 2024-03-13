@@ -24,13 +24,15 @@ body {
     justify-content: center;
     align-items: center;
     margin-bottom: 10px;
+    border-radius: 15px;
+    font: bold;
   }
 
-  .editIngredientButton, .deleteIngredientButton {
+  .editIngredientButton, .deleteIngredientButton, .cancelEditButton {
     padding: 1px;
   }
 
-  .editIngredientButton:hover, .deleteIngredientButton:hover {
+  .editIngredientButton:hover, .deleteIngredientButton:hover, .cancelEditButton:hover {
     /*background-color: #cf4865;*/
     cursor: pointer;
   }
@@ -59,7 +61,7 @@ body {
     padding: 1px;
   }
 
-  table {
+  .ingredientsTable {
     margin: auto;
     min-height: 80px;
     background-color: #f88f78;
@@ -67,6 +69,15 @@ body {
     max-width: 430px;
     border-radius: 15px;
     padding: 8px;
+  }
+
+  .buttonTable {
+    width: 100%;
+
+  }
+
+  .buttonTableRow {
+    width:50%;
   }
   
   .ingredientColumn {
@@ -92,6 +103,7 @@ body {
   tr {
     height: 10px;
     border: 1px solid #000;
+    width: 100%;
   }  
 
   .emptyRow {
@@ -114,6 +126,21 @@ body {
     align-items: center;
     margin: 10px;
     margin-left: auto;
+  }
+  .cancelEditButton {
+    flex-direction: column; 
+    background-color: #f88f78;
+    color: white;
+    border: none;
+    padding: 15px 20px;
+    border-radius: 15px;
+    cursor: pointer;
+    outline: none;
+    transition: background-color 0.3s ease;
+    display: flex;
+    align-items: center;
+    margin: 10px;
+    margin-right: auto;
   }
 
   .generateRecipesButton {
