@@ -39,10 +39,12 @@ export class IngredientsPageComponent {
 
       if (this.ingredientValid) {
         if (this.editedIngredientIndex !==null) {
-          //update existing ingredient
-          this.ingredientList[this.editedIngredientIndex] = ingredient;
-          //reset value
-          this.editedIngredientIndex = null;
+          
+            //update existing ingredient
+            this.ingredientList[this.editedIngredientIndex] = ingredient;
+            //reset value
+            this.editedIngredientIndex = null;
+          
         } 
         else {
           // Check if the ingredient with the same name and quantityType already exists
@@ -55,7 +57,12 @@ export class IngredientsPageComponent {
           //if found
           if (existingIngredientIndex !== -1) {
             //update quantity
-            this.ingredientList[existingIngredientIndex].quantity += ingredient.quantity;
+            if (this.ingredientList[existingIngredientIndex].quantity + ingredient.quantity > 5000) {
+              alert("Ingredient quantity cannot exceed 5000 total");
+            }
+            else {
+              this.ingredientList[existingIngredientIndex].quantity += ingredient.quantity;
+            }
           }
           else {
             //if valid, add ingredient to the list
@@ -85,13 +92,17 @@ export class IngredientsPageComponent {
       alert("Ingredient Name cannot exceed 20 characters")
       return false;
     }
+    else if (/\d/.test(ingredientName)) {
+      alert("Ingredient Name cannot contain numbers")
+      return false;
+    }
     //check for empty characters in name?
     else if (quantity <= 0) {
       alert("Quantity must be greater than 0")
       return false;
     }
-    else if (quantity >= 5000) {
-      alert("Quantity must be less than 5000")//better suggestions for 1000?
+    else if (quantity > 5000) {
+      alert("Quantity must be less or equal to 5000")//better suggestions for 1000?
       return false;
     }
     else if (quantityType.length == 0) {

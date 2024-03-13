@@ -12,26 +12,34 @@
         </label>
     </div>
     <div >
-        <label for="ingredientInput">Ingredient Name:</label>
-        <!--<input type="email" placeholder="Email Address" required [(ngModel)]="loginEmail" name="loginEmail">-->
-        <input type="text" placeholder="Banana" required [(ngModel)]="ingredientInput"  id="ingredientInput" name="ingredientInput" value="Banana">
-        <br>
+      <div class="inputFields">
+        <div class="singleInputField">
+          <label for="ingredientInput">Ingredient Name: </label>
+          <!--<input type="email" placeholder="Email Address" required [(ngModel)]="loginEmail" name="loginEmail">-->
+          <input class="textInputField" type="text" placeholder="Banana" required [(ngModel)]="ingredientInput"  id="ingredientInput" name="ingredientInput" value="Banana">
+          <br>
+        </div>
 
-        <label for="quantityInput">Quantity:</label>
-        <input type="number" placeholder="0" required [(ngModel)]="quantityInput" id="quantityInput" name="quantityInput" value="3">
-        <!--drop down menu id="quantityType"-->
-        <br>
+        <div class="singleInputField" id="quantField">
+          <label for="quantityInput">Quantity: </label>
+          <input class="textInputField" type="number" placeholder="0" required [(ngModel)]="quantityInput" id="quantityInput" name="quantityInput" value="3">
+          <!--drop down menu id="quantityType"-->
+          <br>
+        </div>
 
-        <label for="quantityType">Quantity Type:</label>
-        <select required [(ngModel)]="quantityType" id="quantityType" name="quantityType">
-            
-            <option value="items">Items</option>
-            <option value="oz">Oz</option>
-            <option value="g">g</option>
-            <option value="ml">mL</option>
-            <option value="cup">cups</option>
-        </select>
-        <br> 
+        <div class="singleInputField" id="quantTypeField">
+          <label for="quantityType">Quantity Type: </label>
+          <select required [(ngModel)]="quantityType" id="quantityType" name="quantityType">
+              
+              <option value="items">Items</option>
+              <option value="oz">Oz</option>
+              <option value="g">g</option>
+              <option value="ml">mL</option>
+              <option value="cup">cups</option>
+          </select>
+          <br> 
+          </div>
+      </div>
 
         <button class="addIngredientButton" (click)="addIngredient()">
             {{ editedIngredientIndex !== null ? 'Complete Edit' : 'Add Ingredient' }}
