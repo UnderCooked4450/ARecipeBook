@@ -30,6 +30,11 @@ body {
     padding: 1px;
   }
 
+  .editIngredientButton:hover, .deleteIngredientButton:hover {
+    /*background-color: #cf4865;*/
+    cursor: pointer;
+  }
+
   table {
     margin: auto;
     min-height: 80px;
@@ -142,5 +147,7 @@ body {
     width: 20px;
     height: 20px;
   }
+
+  
 
   
