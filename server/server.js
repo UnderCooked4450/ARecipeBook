@@ -61,6 +61,7 @@ app.post('/signup', async (req, res) => {
     // Check if password and confirmPassword match
     if (password !== confirmPassword) {
       return res.status(400).json({ success: false, message: 'Passwords do not match' });
+      
     }
 
 
@@ -69,8 +70,7 @@ app.post('/signup', async (req, res) => {
     if (!passwordRegex.test(password)) {
       return res.status(400).json({
         success: false,
-        message:
-          'Password must be at least 8 characters long and contain at least one letter, one number, and one special character.',
+        message: 'Password must be at least 8 characters long and contain at least one letter, one number, and one special character.',
       });
     }
     // Hash the password
