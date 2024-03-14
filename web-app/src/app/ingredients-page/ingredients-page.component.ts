@@ -152,4 +152,8 @@ export class IngredientsPageComponent {
     this.router.navigate(['/ingredientsPage'/*replace me Puja*/]);
     console.log("generate receipes button pushed");
   }
+  homePage() {
+    this.router.navigate(['/homepage']);
+    console.log("home page button pushed");
+  }
 }

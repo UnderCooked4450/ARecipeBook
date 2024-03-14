@@ -5,7 +5,11 @@
 />
 
 <div class="container"> 
-
+    <div id="backButton">
+      <button class = "homeButton" (click)="homePage()">
+          <img class="image" src="../../assets/img/homeIcon.png" alt="Delete">
+       </button>
+    </div>
     <div *ngIf="editedIngredientIndex !== null" class="editingNotification">
         <label>
           Editing Ingredient: {{ ingredientList[editedIngredientIndex].ingredientName }}, {{ingredientList[editedIngredientIndex].quantity}} {{ingredientList[editedIngredientIndex].quantityType}}
