@@ -33,4 +33,13 @@ export class AuthService {
       })
     );
   }
+  //for recipe searchw
+
+// Inside your recipe service or wherever you make the HTTP call
+searchRecipes(ingredients: string[]): Observable<Array<{ title: string, url: string }>> {
+  const backendUrl = 'http://localhost:3000/search'; // Backend URL
+  return this.http.post<Array<{ title: string, url: string }>>(backendUrl, { ingredients });
+}
+
+  
 }

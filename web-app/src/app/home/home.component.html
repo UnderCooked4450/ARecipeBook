@@ -14,10 +14,20 @@
       src="../../assets/img/homePage-search-bar-image.png"
       alt="Search Feature"
     />
-    <input type="text" placeholder="Search Ingredients" class="search-bar" />
+    <input
+      type="text"
+      [(ngModel)]="selectedIngredients"
+      placeholder="Search Ingredients"
+      class="search-bar"
+      id="lst-ib"
+    />
+
+    <button id="searchButton" (click)="searchrecipe()" type="submit">
+      submit
+    </button>
   </div>
   <div class="function-buttons">
-    <button class="scan-ingredient-feature" (click) = "camera()">
+    <button class="scan-ingredient-feature" (click)="camera()">
       <i class="fas fa-camera camera-icon"></i>
       <span class="scan-ingredient-feature-p">Scan Ingredient</span>
     </button>
@@ -34,4 +44,10 @@
       alt="Search Feature"
     />
   </div>
+  <!-- this is when the user search the recipe -->
+  <ul *ngIf="recipeLinks.length">
+    <li *ngFor="let link of recipeLinks">
+      <a [href]="link.url" target="_blank">{{ link.title }}</a>
+    </li>
+  </ul>
 </div>
