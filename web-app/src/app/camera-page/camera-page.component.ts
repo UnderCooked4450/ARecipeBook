@@ -5,6 +5,8 @@ import { WebcamModule } from 'ngx-webcam';
 import { FormsModule } from '@angular/forms';
 import { WebcamImage, WebcamInitError, WebcamUtil } from 'ngx-webcam';
 import { CommonModule } from '@angular/common';
+import { environment } from '../environment'; 
+import { HttpClient } from '@angular/common/http';
 
 @Component({
   selector: 'app-camera-page',
@@ -14,8 +16,8 @@ import { CommonModule } from '@angular/common';
   styleUrl: './camera-page.component.css',
 })
 export class CameraPageComponent implements OnInit {
-  constructor(private router: Router) {}
-
+  constructor(private http: HttpClient ,private router: Router) {}
+  private baseUrl = environment.apiUrl;
   // toggle webcam on/off
   public showWebcam = true;
   public allowCameraSwitch = true;
@@ -67,11 +69,22 @@ export class CameraPageComponent implements OnInit {
   }
 
   public handleImage(webcamImage: WebcamImage): void {
-    console.info('received webcam image', webcamImage);
     this.webcamImage = webcamImage;
     this.sysImage = webcamImage!.imageAsDataUrl;
-    console.info('got webcam image', this.sysImage);
-    console.log(this.webcamImage.imageAsDataUrl);
+    console.log(`${this.baseUrl}/lensapi`)
+    this.http.post(`${this.baseUrl}/lensapi/`, this.webcamImage).subscribe({
+      next: value => {
+        console.log('Sign up successful:', value);
+      },
+      error: error => {
+        console.error('Sign up error:', error);
+        if (error.error && error.error.message) {
+          alert(error.error.message);
+        } else {
+          alert('An error occurred during sign up.');
+        }
+      }
+    })
   }
 
   public cameraWasSwitched(deviceId: string): void {

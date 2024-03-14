@@ -1,8 +1,7 @@
-
 const cv = require('@techstark/opencv-js')
 const { createCanvas, loadImage } = require('canvas');
 const vision = require('@google-cloud/vision');
-const client = new vision.ImageAnnotatorClient(visionConfig);
+const client = new vision.ImageAnnotatorClient();
 async function send2google(req)
 {
     const key1="vert"
@@ -80,3 +79,5 @@ async function send2google(req)
     return(error)
     }
 }
+
+module.exports = { send2google };

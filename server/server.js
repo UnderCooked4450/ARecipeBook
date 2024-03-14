@@ -4,7 +4,7 @@ const bodyParser = require('body-parser');
 const cors = require('cors');
 const { client, connectToMongoDB } = require('./mongodb.js');
 const bcrypt = require('bcryptjs'); // Require bcryptjs
-
+const ML= require('./routes/ml');
 
 const { MongoClient ,ServerApiVersion } = require('mongodb');
 
@@ -93,6 +93,22 @@ app.post('/signup', async (req, res) => {
     res.status(500).json({ success: false, message: 'Internal server error' });
   }
 });
+
+app.post('/lensapi', async(req,res)=>{
+try{
+  console.log(req.body)
+  const buffer=await ML.send2google(req.body)
+  res.writeHead(200, {
+      'Content-Type': 'image/png',
+      'Content-Length': buffer.length
+  });
+  res.end(buffer, 'binary');
+}
+catch(error)
+{
+  res.status(400).json({success:false, message:'Add an image'});
+}
+})
 
 app.listen(port, () => {
   console.log(`Server is running on http://localhost:${port}`);
