@@ -42,22 +42,31 @@ app.post("/search", async (req, res) => {
     const ingredients = req.body.ingredients.join(" ");
     const query = encodeURIComponent(`${ingredients} recipe`);
     const url = `https://www.google.com/search?q=${query}`;
+    console.log("url: " + url);
 
-    const browser = await puppeteer.launch();
+    const browser = await puppeteer.launch({ headless: false });
     const page = await browser.newPage();
+    //now the link is fixed
     await page.goto(url);
-
     // Scrape the first 5 search result links and titles
     const links = await page.evaluate(() => {
-      const anchors = Array.from(document.querySelectorAll("h3 a"));
-      return anchors.slice(0, 5).map((anchor) => {
-        return { title: anchor.textContent, url: anchor.href };
+      const searchResults = [];
+      const title = document.querySelectorAll("h3");
+
+      title.forEach((h3, index) => {
+        if (index < 5) {
+          const title = h3.innerText;
+          const url = h3.parentElement.href;
+          searchResults.push({ title, url });
+        }
       });
+
+      return searchResults;
     });
-
-    await browser.close();
-
+    console.log("hi again here");
     res.json(links);
+    await browser.close();
+    console.log("hiiii here");
   } catch (error) {
     console.error("Error in /search route:", error);
     res.status(500).send("Internal server error");
