@@ -3,10 +3,10 @@
   href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css"
 />
 
-<div class="container">
+<div class="container" >
   <div class="header">
     <i class="fas fa-bars menu-icon"></i>
-    <button (click)="logout()">Logout</button>
+    <button class="logout-button" (click)="logout()">Logout</button>
   </div>
   <div class="search-feature">
     <img
@@ -27,11 +27,17 @@
       <span class="saved-recipes-feature-p">Saved Recipes</span>
     </button>
   </div>
+
+  
+
+  
   <div class="random-picture-feature">
-    <img
+    <button (click)="addIngredient()">
+      <img
       class="search-feature-picture"
       src="../../assets/img/homePage-random-meal-image.png"
       alt="Search Feature"
-    />
+      />
+    </button>
   </div>
 </div>
