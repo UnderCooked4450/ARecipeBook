@@ -7,28 +7,26 @@ import { Router } from '@angular/router';
   standalone: true,
   imports: [],
   templateUrl: './home.component.html',
-  styleUrl: './home.component.css'
+  styleUrl: './home.component.css',
 })
 
 
 
 export class HomeComponent {
 
-  
-  constructor(private authService: AuthService, private router: Router) {
-    
-  }
+  constructor(private authService: AuthService, private router: Router) {}
+
 
   logout() {
     this.authService.logout().subscribe({
-      next: value => {
+      next: (value) => {
         // If logout is successful, navigate to the login page
         this.router.navigate(['/login']);
       },
-      error: error => {
+      error: (error) => {
         console.error('Logout error:', error);
         // Handle logout error
-      }
+      },
     });
   }
 
@@ -40,5 +38,9 @@ export class HomeComponent {
   camera() {
     this.router.navigate(['/camera']);
 
+  }
+
+  timer() {
+    this.router.navigate(['/timer']);
   }
 }

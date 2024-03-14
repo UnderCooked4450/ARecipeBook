@@ -1,0 +1,65 @@
+<link
+  rel="stylesheet"
+  href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css"
+/>
+<body>
+  <div class="container">
+    <div class="header">
+      <button class="fas fa-arrow-left" (click)="home()"></button>
+    </div>
+    <div class="title">
+      <h3>Timer</h3>
+    </div>
+    <!-- <div class="timerList"> -->
+      <!--Timer list-->
+    <!-- </div>
+    <button class="addTimer">add timer</button>
+    <div id="addTimerModal" style="display: none;">
+      <h2>Add Timer</h2>
+      <label for="timerName">Timer Name:</label>
+      <input type="text" id="timerName" name="timerName">
+      <button id="saveTimerBtn">Save</button>
+      <button id="cancelTimerBtn">Cancel</button>
+    </div> -->
+
+    <label>Hours </label>
+    <input
+      type="number"
+      min="0"
+      max="99"
+      [(ngModel)]="hours"
+      placeholder="Hours"
+    />
+    <label> Minutes </label>
+    <input
+      type="number"
+      min="0"
+      max="59"
+      [(ngModel)]="minutes"
+      placeholder="Minutes"
+    />
+    <label> Seconds </label>
+    <input
+      type="number"
+      min="0"
+      max="59"
+      [(ngModel)]="seconds"
+      placeholder="Seconds"
+    />
+    <br />
+    <br />
+    <div class="button-container">
+      <button
+        [class]="'fas ' + (isTimerRunning ? 'fa-pause' : 'fa-play')"
+        (click)="toggleTimer()"
+      ></button>
+    </div>
+    <p id="timer">{{ timerDisplay }}</p>
+
+    <!-- <audio
+      #audioPlayer
+      src="server\assets\TimerDone.mp3"
+      autoplay="false"
+    ></audio> -->
+  </div>
+</body>

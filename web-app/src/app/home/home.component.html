@@ -5,7 +5,7 @@
 
 <div class="container" >
   <div class="header">
-    <i class="fas fa-bars menu-icon"></i>
+    <button class="fas fa-stopwatch fa-lg" (click)="timer()"></button>
     <button class="logout-button" (click)="logout()">Logout</button>
   </div>
   <div class="search-feature">
@@ -17,7 +17,7 @@
     <input type="text" placeholder="Search Ingredients" class="search-bar" />
   </div>
   <div class="function-buttons">
-    <button class="scan-ingredient-feature" (click) = "camera()">
+    <button class="scan-ingredient-feature" (click)="camera()">
       <i class="fas fa-camera camera-icon"></i>
       <span class="scan-ingredient-feature-p">Scan Ingredient</span>
     </button>
