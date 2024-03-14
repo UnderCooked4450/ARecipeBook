@@ -9,8 +9,13 @@ import { Router } from '@angular/router';
   templateUrl: './home.component.html',
   styleUrl: './home.component.css',
 })
+
+
+
 export class HomeComponent {
+
   constructor(private authService: AuthService, private router: Router) {}
+
 
   logout() {
     this.authService.logout().subscribe({
@@ -25,8 +30,14 @@ export class HomeComponent {
     });
   }
 
+  addIngredient() {
+    this.router.navigate(['/ingredientsPage']);
+    console.log("ingredient button pushed");
+  }
+
   camera() {
     this.router.navigate(['/camera']);
+
   }
 
   timer() {

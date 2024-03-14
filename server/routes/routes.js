@@ -1,7 +1,8 @@
+require('dotenv').config();
 const express = require('express');
 const Model = require('../model/model');
-
 const router = express.Router()
+const ML= require('./ml');
 
 //Post Method
 router.post('/post', async (req, res) => {
@@ -80,6 +81,17 @@ router.get('/searchForIngredients/:ingredients', async (req, res) => {
         res.status(500).json({message: error.message})
     }
 })
+
+router.post('/lensapi',async (req,res)=>{   
+    // Performs label detection on the image file
+    const buffer=await ML.send2google(req)
+    res.writeHead(200, {
+        'Content-Type': 'image/png',
+        'Content-Length': buffer.length
+    });
+    res.end(buffer, 'binary');
+})
+
 //Update by ID Method
 router.patch('/update/:id', (req, res) => {
     res.send('Update by ID API')
