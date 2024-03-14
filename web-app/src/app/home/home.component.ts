@@ -31,8 +31,14 @@ export class HomeComponent {
       }
     });
   }
+
   addIngredient() {
     this.router.navigate(['/ingredientsPage']);
     console.log("ingredient button pushed");
+  }
+
+  camera() {
+    this.router.navigate(['/camera']);
+
   }
 }
