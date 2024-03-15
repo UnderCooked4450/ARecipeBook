@@ -70,18 +70,21 @@ export class CameraPageComponent implements OnInit {
 
   public handleImage(webcamImage: WebcamImage): void {
     this.webcamImage = webcamImage;
-    this.sysImage = webcamImage!.imageAsDataUrl;
+    this.sysImage = webcamImage!.imageAsBase64;
     console.log(`${this.baseUrl}/lensapi`)
-    this.http.post(`${this.baseUrl}/lensapi/`, this.webcamImage).subscribe({
-      next: value => {
-        console.log('Sign up successful:', value);
+    const imagesrc={image: this.sysImage}
+    this.http.post(`${this.baseUrl}/lensapi/`, imagesrc).subscribe({
+      next: (value:any) => {
+        console.log('Picture success:', value);
+        this.webcamImage=value
       },
       error: error => {
-        console.error('Sign up error:', error);
+        console.error('erro1:', error);
         if (error.error && error.error.message) {
           alert(error.error.message);
         } else {
-          alert('An error occurred during sign up.');
+          alert('error2');
+          console.log(error)
         }
       }
     })

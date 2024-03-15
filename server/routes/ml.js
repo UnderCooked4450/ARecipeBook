@@ -1,9 +1,18 @@
 const cv = require('@techstark/opencv-js')
 const { createCanvas, loadImage } = require('canvas');
 const vision = require('@google-cloud/vision');
-const client = new vision.ImageAnnotatorClient();
-async function send2google(req)
+const visionCreds= JSON.parse(process.env.VISION_CREDENTIALS)
+const visionConfig={
+    credentials:{
+        private_key: visionCreds.private_key,
+        client_email: visionCreds.client_email,
+    }
+};
+const tomato=('/home/sharl/ARecipeBook/server/routes/tomato.jpg')
+const client = new vision.ImageAnnotatorClient(visionConfig);
+async function send2google(encodedData)
 {
+    const req=Buffer.from(encodedData, 'base64');
     const key1="vert"
     const [result]= await client.objectLocalization(req);
     const objects = result.localizedObjectAnnotations;
@@ -11,7 +20,6 @@ async function send2google(req)
      // Create a canvas with the same dimensions as the image
     const canvas = createCanvas(image.width, image.height);
     const ctx = canvas.getContext('2d');
-    
     // Draw the image on the canvas
     ctx.drawImage(image, 0, 0, image.width, image.height);
     
@@ -19,7 +27,8 @@ async function send2google(req)
     ctx.strokeStyle = 'red';
     ctx.lineWidth = 2;
     ctx.font = '20px Arial';
-    
+    let foods={}
+    const key="Food"
     
     let boxes={}
     let boxkey="box"
@@ -71,9 +80,21 @@ async function send2google(req)
             ctx.fillRect(TopLeftpt.x*image.width, TopLeftpt.y*image.height - textHeight - 10, textWidth + 10, textHeight + 10);
             ctx.fillStyle = 'white'; 
             ctx.fillText(object.name, TopLeftpt.x*image.width, TopLeftpt.y*image.height - 5);
-      });
-    console.log(foods);
-    return canvas
+            
+            foods[key]=[]
+            objects.forEach(object => {
+                if(object.name!="Food")
+                {
+                    let data={
+                        name:object.name,
+                        score:object.score
+                    }
+                    foods[key].push(data)
+                }
+            });
+        });
+      const stream=canvas.toDataURL(ctx)
+        return [stream,foods]
     }
     catch(error){
     return(error)
