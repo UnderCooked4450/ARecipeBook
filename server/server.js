@@ -27,7 +27,6 @@ run().catch(console.dir);
 
 const port = process.env.PORT;
 
-app.use(bodyParser.json());
 app.use(
   cors({
     origin: "http://localhost:4200",
