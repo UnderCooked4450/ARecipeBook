@@ -43,4 +43,8 @@ export class HomeComponent {
   timer() {
     this.router.navigate(['/timer']);
   }
+
+  savedRecipes() {
+    this.router.navigate(['/saved-recipe'])
+  }
 }
