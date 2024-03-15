@@ -29,12 +29,14 @@ body {
 }
 
 .menu-icon{
+  
   color: black;
   font-size: 24px; /* Example style */
   cursor: pointer;
 }
 
 .search-feature {
+
   position: relative;
   margin-bottom: 20px;
 }
@@ -55,6 +57,17 @@ body {
   border: 2px solid #E9917E;
   border-radius: 20px;
   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+.search-button {
+  position: absolute;
+  bottom:10.2px;
+  left: 72.5%;
+  width: 20%;
+  padding: 9px; /* Match input height or as desired */
+  background-color: #f88f78;
+  border: none;
+  border-radius: 20px;
+  cursor: pointer;
 }
 
 .function-buttons {
@@ -147,4 +160,27 @@ button:hover {
   height: 100%;
   background-size: cover;
   background-position: center;
+}
+
+ul {
+  list-style-type: none; 
+  padding: 0; 
+  margin: 0; 
+}
+
+li {
+  background-color:  #f88f78; 
+  margin: 10px 0; 
+  padding: 10px; 
+  border-radius: 5px; 
+}
+
+a {
+  color: #000000; 
+  text-decoration: none;
+  display: block; 
+}
+
+li:hover {
+    background-color: #cf4865;
 }
