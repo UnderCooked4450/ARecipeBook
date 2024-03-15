@@ -4,7 +4,7 @@ const bodyParser = require('body-parser');
 const cors = require('cors');
 const { client, connectToMongoDB } = require('./mongodb.js');
 const bcrypt = require('bcryptjs'); // Require bcryptjs
-
+const ML= require('./routes/ml');
 
 const { MongoClient ,ServerApiVersion } = require('mongodb');
 
@@ -26,9 +26,14 @@ run().catch(console.dir);
 
 const port = process.env.PORT;
 
-app.use(bodyParser.json());
-app.use(cors());
-
+app.use(bodyParser.json({limit: '50mb', extended: true}));
+app.use(bodyParser.urlencoded({limit: "50mb", extended: true, parameterLimit:50000}));
+app.use(bodyParser.text({ limit: '200mb' }));
+app.use(
+  cors({
+    origin: "http://localhost:4200",
+  })
+);
 
 
 app.post('/login', async (req, res) => {
@@ -93,6 +98,19 @@ app.post('/signup', async (req, res) => {
     res.status(500).json({ success: false, message: 'Internal server error' });
   }
 });
+
+app.post('/lensapi', async(req,res)=>{
+try{
+  const buffer=await ML.send2google(req.body.image)
+  console.log(buffer[0])
+  res.json({success:true, imageAsDataUrl:buffer[0], list:buffer[1]});
+}
+catch(error)
+{
+  console.log(error)
+  res.status(400).json({success:false, message:'Add an image'});
+}
+})
 
 app.listen(port, () => {
   console.log(`Server is running on http://localhost:${port}`);

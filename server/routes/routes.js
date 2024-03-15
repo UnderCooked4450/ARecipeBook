@@ -24,6 +24,7 @@ router.post('/post', async (req, res) => {
 
 //Get all Method
 router.get('/getAll', async (req, res) => {
+    console.log("sigma")
     try{
         const data = await Model.find();
         res.json(data)
@@ -80,16 +81,6 @@ router.get('/searchForIngredients/:ingredients', async (req, res) => {
     catch(error){
         res.status(500).json({message: error.message})
     }
-})
-
-router.post('/lensapi',async (req,res)=>{   
-    // Performs label detection on the image file
-    const buffer=await ML.send2google(req)
-    res.writeHead(200, {
-        'Content-Type': 'image/png',
-        'Content-Length': buffer.length
-    });
-    res.end(buffer, 'binary');
 })
 
 //Update by ID Method
