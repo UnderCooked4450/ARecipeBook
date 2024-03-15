@@ -9,26 +9,31 @@ import { CommonModule } from '@angular/common';
   standalone: true,
   imports: [FormsModule, CommonModule],
   templateUrl: './home.component.html',
-  styleUrl: './home.component.css'
+  styleUrl: './home.component.css',
 })
+
+
+
 export class HomeComponent {
   selectedIngredients: string = '';
   recipeLinks: Array<{ title: string, url: string }> = [];
 
   constructor(private authService: AuthService, private router: Router) {}
-  
+
+
   logout() {
     this.authService.logout().subscribe({
-      next: value => {
+      next: (value) => {
         // If logout is successful, navigate to the login page
         this.router.navigate(['/login']);
       },
-      error: error => {
+      error: (error) => {
         console.error('Logout error:', error);
         // Handle logout error
-      }
+      },
     });
   }
+
   searchrecipe() {
     this.authService.searchRecipes([this.selectedIngredients]).subscribe({
       next: (links) => {
@@ -39,7 +44,23 @@ export class HomeComponent {
       }
     });
   }
+  
+  addIngredient() {
+    this.router.navigate(['/ingredientsPage']);
+    console.log("ingredient button pushed");
+  }
+
+
   camera() {
     this.router.navigate(['/camera']);
+
+  }
+
+  timer() {
+    this.router.navigate(['/timer']);
+  }
+
+  savedRecipes() {
+    this.router.navigate(['/saved-recipe'])
   }
 }
