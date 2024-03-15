@@ -102,7 +102,7 @@ app.post('/signup', async (req, res) => {
 app.post('/lensapi', async(req,res)=>{
 try{
   const buffer=await ML.send2google(req.body.image)
-  console.log(buffer[0])
+  //console.log(buffer[0])
   res.json({success:true, imageAsDataUrl:buffer[0], list:buffer[1]});
 }
 catch(error)
