@@ -27,6 +27,10 @@ run().catch(console.dir);
 
 const port = process.env.PORT;
 
+app.use(bodyParser.json({limit: '50mb', extended: true}));
+app.use(bodyParser.urlencoded({limit: "50mb", extended: true, parameterLimit:50000}));
+app.use(bodyParser.text({ limit: '200mb' }));
+
 app.use(
   cors({
     origin: "http://localhost:4200",
@@ -59,7 +63,6 @@ app.post("/search", async (req, res) => {
           searchResults.push({ title, url });
         }
       });
-
       return searchResults;
     });
     console.log("hi again here");
@@ -143,10 +146,22 @@ app.post("/signup", async (req, res) => {
   }
 });
 
-app
-  .listen(port, () => {
-    console.log(`Server is running on http://localhost:${port}`);
-  })
-  .on("error", (err) => {
-    console.error("Server start error:", err);
-  });
+app.post('/lensapi', async(req,res)=>{
+try{
+  const buffer=await ML.send2google(req.body.image)
+  console.log(buffer[0])
+  res.json({success:true, imageAsDataUrl:buffer[0], list:buffer[1]});
+}
+catch(error)
+{
+  console.log(error)
+  res.status(400).json({success:false, message:'Add an image'});
+}
+})
+
+app.listen(port, () => {
+  console.log(`Server is running on http://localhost:${port}`);
+}).on('error', (err) => {
+  console.error('Server start error:', err);
+});
+

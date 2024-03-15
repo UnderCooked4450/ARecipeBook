@@ -1,0 +1,47 @@
+<link
+  rel="stylesheet"
+  href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css"
+/>
+
+<body>
+  <div class="container">
+    <div class="header">
+      <button
+        class="fas fa-home"
+        (click)="home()"
+        width="45"
+        height="45"
+      ></button>
+      <h3>Saved Recipes</h3>
+    </div>
+
+    <div class="recipe-container">
+      <div class="recipe-info">
+        <p>Spaghetti Bolognese</p>
+
+        <div class="recipe-content">
+          <div class="info-button">
+            <!-- TODO change button text to Go to recipe, add icon, add hyperlink -->
+            <button (click)="toggleIngredientList($event)">info</button>
+            <div class="ingredient-list">
+              <ul>
+                <li>ground beef</li>
+                <li>garlic</li>
+                <li>onion</li>
+                <li>pasta</li>
+                <li>
+                  <a href="https://www.recipetineats.com/spaghetti-bolognese/"
+                    >Link
+                  </a>
+                </li>
+              </ul>
+            </div>
+          </div>
+          <div class="recipe-img">
+            <img src="../assets/img/spaget.png" />
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</body>

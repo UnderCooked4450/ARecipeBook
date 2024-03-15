@@ -1,7 +1,8 @@
+require('dotenv').config();
 const express = require('express');
 const Model = require('../model/model');
-
 const router = express.Router()
+const ML= require('./ml');
 
 //Post Method
 router.post('/post', async (req, res) => {
@@ -23,6 +24,7 @@ router.post('/post', async (req, res) => {
 
 //Get all Method
 router.get('/getAll', async (req, res) => {
+    console.log("sigma")
     try{
         const data = await Model.find();
         res.json(data)
@@ -80,6 +82,7 @@ router.get('/searchForIngredients/:ingredients', async (req, res) => {
         res.status(500).json({message: error.message})
     }
 })
+
 //Update by ID Method
 router.patch('/update/:id', (req, res) => {
     res.send('Update by ID API')
