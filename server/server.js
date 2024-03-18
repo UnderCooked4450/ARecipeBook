@@ -47,7 +47,7 @@ app.post("/search", async (req, res) => {
     const url = `https://www.google.com/search?q=${query}`;
     console.log("url: " + url);
 
-    const browser = await puppeteer.launch({ headless: false });
+    const browser = await puppeteer.launch({ headless: true }); // headless mode prevents new browser from opening
     const page = await browser.newPage();
     //now the link is fixed
     await page.goto(url);
