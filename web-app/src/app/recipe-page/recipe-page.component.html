@@ -1,5 +1,18 @@
 <div class = 'container'>
-    <li class="recipes">
-        Recipe Holder 
-    </li>
+    <div *ngIf="recipes.length > 0">
+        <h2>Recipes</h2>
+        <ul>
+          <li *ngFor="let recipe of recipes">
+            <a [href]="recipe.url" target="_blank">{{ recipe.title }}</a>
+          </li>
+        </ul>
+      </div>
+      
+      <div *ngIf="recipes.length === 0">
+        <p>No recipes found.</p>
+      </div>
+
+      <button class = 'backButton'(click)="backButton()">Back to Ingredients</button>
 </div>
+
+  
