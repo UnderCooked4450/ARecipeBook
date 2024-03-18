@@ -1,0 +1,221 @@
+
+body {
+    font-family: 'Poppins', sans-serif;
+    background-color: #c9c9c6;
+    box-shadow:  35px 35px 70px #f2f2f2,
+           -35px -35px 70px #ffffff;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
+    margin: 0; 
+  }
+
+  .ingredientTable {
+    border-collapse: collapse;
+    width: 100%;
+    table-layout: fixed;
+  }
+
+  .editingNotification {
+    background-color: #f88f78;
+    height: 25px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-bottom: 10px;
+    border-radius: 15px;
+    font: bold;
+  }
+
+
+
+  .editIngredientButton, .deleteIngredientButton, .cancelEditButton {
+    padding: 1px;
+  }
+
+  .editIngredientButton:hover, .homeButton:hover, .deleteIngredientButton:hover, .cancelEditButton:hover {
+    /*background-color: #cf4865;*/
+    cursor: pointer;
+  }
+
+  .inputFields {
+    background-color: #f88f78;
+    border-radius: 15px;
+    padding: 10px;
+    width: 300px;
+    margin: auto;
+  }
+
+  .textInputField {
+    width: 125px;
+  }
+
+  #quantField {
+    margin-left: 52px;
+  }
+
+  #quantTypeField {
+    margin-right: 59px;
+  }
+
+  .singleInputField {
+    padding: 1px;
+  }
+
+  .ingredientsTable {
+    margin: auto;
+    min-height: 80px;
+    background-color: #f88f78;
+    min-width: 410px;
+    max-width: 430px;
+    border-radius: 15px;
+    padding: 8px;
+  }
+
+  .buttonTable {
+    width: 100%;
+
+  }
+
+  .buttonTableRow {
+    width:50%;
+  }
+  
+  .ingredientColumn {
+    max-width: 100px;
+  }
+
+  .ingredientTable {
+    overflow: auto;
+    overflow-x: hidden;
+    max-height: 450px;
+    padding: 5px;
+    word-wrap: break-word;
+  }
+
+  th {    
+    background-color: #f2f2f2;
+    border: 1px solid #000;
+    padding: 10px;
+    padding-left: 0px;
+    padding-right: 0px;
+  }
+
+  tr {
+    height: 10px;
+    border: 1px solid #000;
+    width: 100%;
+  }  
+
+  .emptyRow {
+    height: 10px;
+  }
+
+  
+
+  .addIngredientButton {
+    flex-direction: column; 
+    background-color: #f88f78;
+    color: white;
+    border: none;
+    padding: 15px 20px;
+    border-radius: 15px;
+    cursor: pointer;
+    outline: none;
+    transition: background-color 0.3s ease;
+    display: flex;
+    align-items: center;
+    margin: 10px;
+    margin-left: auto;
+  }
+  .cancelEditButton {
+    flex-direction: column; 
+    background-color: #f88f78;
+    color: white;
+    border: none;
+    padding: 15px 20px;
+    border-radius: 15px;
+    cursor: pointer;
+    outline: none;
+    transition: background-color 0.3s ease;
+    display: flex;
+    align-items: center;
+    margin: 10px;
+    margin-right: auto;
+  }
+
+  .generateRecipesButton {
+    flex-direction: column; 
+    background-color: #f88f78;
+    color: white;
+    border: none;
+    padding: 15px 20px;
+    border-radius: 15px;
+    cursor: pointer;
+    outline: none;
+    transition: background-color 0.3s ease;
+    display: flex;
+    margin: 10px;
+    margin-left: auto;
+  }
+
+  button {
+    background-color: #f88f78;
+    color: white;
+    border: none;
+    padding: 0px 0px;
+    border-radius: 15px;
+    cursor: pointer;
+    outline: none;
+    transition: background-color 0.3s ease;
+  }
+  
+  button:hover {
+    background-color: #cf4865;
+  }
+
+  .headers {
+    margin-right: 5px;
+    max-width: 100px;
+  }
+
+  .container {
+    text-align: center;
+    padding: 20px;
+    border-radius: 15px;
+    background: #f2f2f2;
+    width: 80%;
+    max-width: 420px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    margin: auto; 
+    box-shadow:  35px 35px 70px #f2f2f2,
+           -35px -35px 70px #ffffff;
+           /*
+    display: flex;
+    justify-content: space-between;*/
+  }  
+
+  .image {
+    width: 20px;
+    height: 20px;
+  }
+
+  
+  .homeButton {
+    flex-direction: column; 
+    background-color: #f88f78;
+    color: white;
+    border: none;
+    padding: 10px 10px;
+    border-radius: 15px;
+    cursor: pointer;
+    outline: none;
+    transition: background-color 0.3s ease;
+    display: flex;
+    margin: 10px;
+    align-items: center;
+    margin-left: 0;
+  }
+
+  

@@ -3,10 +3,10 @@
   href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css"
 />
 
-<div class="container">
+<div class="container" >
   <div class="header">
-    <i class="fas fa-bars menu-icon"></i>
-    <button (click)="logout()">Logout</button>
+    <button class="fas fa-stopwatch fa-lg" (click)="timer()"></button>
+    <button class="logout-button" (click)="logout()">Logout</button>
   </div>
   <div class="search-feature">
     <img
@@ -14,24 +14,45 @@
       src="../../assets/img/homePage-search-bar-image.png"
       alt="Search Feature"
     />
-    <input type="text" placeholder="Search Ingredients" class="search-bar" />
+    <input
+      type="text"
+      [(ngModel)]="selectedIngredients"
+      placeholder="Search Ingredients"
+      class="search-bar"
+      id="lst-ib"
+    />
+    <button class="search-button" id="searchButton" (click)="searchrecipe()" type="submit">
+      submit
+    </button>
   </div>
   <div class="function-buttons">
-    <button class="scan-ingredient-feature" (click) = "camera()">
+    <button class="scan-ingredient-feature" (click)="camera()">
       <i class="fas fa-camera camera-icon"></i>
       <span class="scan-ingredient-feature-p">Scan Ingredient</span>
     </button>
 
-    <button class="saved-recipes-feature">
+    <button class="saved-recipes-feature" (click)="savedRecipes()">
       <i class="fas fa-book-medical recipebook-icon"></i>
       <span class="saved-recipes-feature-p">Saved Recipes</span>
     </button>
   </div>
+
+  
+
+  
   <div class="random-picture-feature">
-    <img
+    <button (click)="addIngredient()">
+      <img
       class="search-feature-picture"
       src="../../assets/img/homePage-random-meal-image.png"
       alt="Search Feature"
-    />
+      />
+    </button>
   </div>
+  <!-- this is when the user search the recipe -->
+  <ul *ngIf="recipeLinks.length">
+    <li *ngFor="let link of recipeLinks">
+      <a [href]="link.url" target="_blank">{{ link.title }}</a>
+    </li>
+  </ul>
 </div>

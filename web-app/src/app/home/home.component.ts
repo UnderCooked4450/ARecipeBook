@@ -1,32 +1,66 @@
 import { Component } from '@angular/core';
 import { AuthService } from '../auth.service';
 import { Router } from '@angular/router';
+import { FormsModule } from '@angular/forms';
+import { CommonModule } from '@angular/common';
 
 @Component({
   selector: 'app-home',
   standalone: true,
-  imports: [],
+  imports: [FormsModule, CommonModule],
   templateUrl: './home.component.html',
-  styleUrl: './home.component.css'
+  styleUrl: './home.component.css',
 })
+
+
+
 export class HomeComponent {
+  selectedIngredients: string = '';
+  recipeLinks: Array<{ title: string, url: string }> = [];
 
   constructor(private authService: AuthService, private router: Router) {}
-  
+
+
   logout() {
     this.authService.logout().subscribe({
-      next: value => {
+      next: (value) => {
         // If logout is successful, navigate to the login page
         this.router.navigate(['/login']);
       },
-      error: error => {
+      error: (error) => {
         console.error('Logout error:', error);
         // Handle logout error
-      }
+      },
     });
   }
 
+  searchrecipe() {
+    this.authService.searchRecipes([this.selectedIngredients]).subscribe({
+      next: (links) => {
+        this.recipeLinks = links;
+      },
+      error: (error) => {
+        console.error('Search error:', error);
+      }
+    });
+  }
+  
+  addIngredient() {
+    this.router.navigate(['/ingredientsPage']);
+    console.log("ingredient button pushed");
+  }
+
+
   camera() {
     this.router.navigate(['/camera']);
+
+  }
+
+  timer() {
+    this.router.navigate(['/timer']);
+  }
+
+  savedRecipes() {
+    this.router.navigate(['/saved-recipe'])
   }
 }

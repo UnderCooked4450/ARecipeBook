@@ -1,0 +1,101 @@
+
+<link
+  rel="stylesheet"
+  href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css"
+/>
+
+<div class="container"> 
+    <div id="backButton">
+      <button class = "homeButton" (click)="homePage()">
+          <img class="image" src="../../assets/img/homeIcon.png" alt="Delete">
+       </button>
+    </div>
+    <div *ngIf="editedIngredientIndex !== null" class="editingNotification">
+        <label>
+          Editing Ingredient: {{ ingredientList[editedIngredientIndex].ingredientName }}, {{ingredientList[editedIngredientIndex].quantity}} {{ingredientList[editedIngredientIndex].quantityType}}
+        </label>
+    </div>
+    <div >
+      <div class="inputFields">
+        <div class="singleInputField">
+          <label for="ingredientInput">Ingredient Name: </label>
+          <!--<input type="email" placeholder="Email Address" required [(ngModel)]="loginEmail" name="loginEmail">-->
+          <input class="textInputField" type="text" placeholder="Banana" required [(ngModel)]="ingredientInput"  id="ingredientInput" name="ingredientInput" value="Banana">
+          <br>
+        </div>
+
+        <div class="singleInputField" id="quantField">
+          <label for="quantityInput">Quantity: </label>
+          <input class="textInputField" type="number" placeholder="0" required [(ngModel)]="quantityInput" id="quantityInput" name="quantityInput" value="3">
+          <!--drop down menu id="quantityType"-->
+          <br>
+        </div>
+
+        <div class="singleInputField" id="quantTypeField">
+          <label for="quantityType">Quantity Type: </label>
+          <select required [(ngModel)]="quantityType" id="quantityType" name="quantityType">
+              
+              <option value="items">Items</option>
+              <option value="oz">Oz</option>
+              <option value="g">g</option>
+              <option value="ml">mL</option>
+              <option value="cup">cups</option>
+          </select>
+          <br> 
+          </div>
+      </div>
+      <!--need to make visible only if editedIngredientIndex !==null-->
+      <table class="buttonTable">
+        <tr>
+          <td class="buttonTableRow">
+            <button *ngIf="editedIngredientIndex !== null" class="cancelEditButton" (click)="cancelEdit()">
+                Cancel Edit
+            </button>
+          </td>
+          <td class="buttonTableRow">
+            <button class="addIngredientButton" (click)="addIngredient()">
+                {{ editedIngredientIndex !== null ? 'Complete Edit' : 'Add Ingredient' }}
+            </button>
+          </td>
+        </tr>
+      </table>  
+        <div id="ingredientList" class = "ingredientTable">
+            <table class="ingredientsTable">
+                <thead class="headers">
+                  <tr >
+                    <th class="ingredientColumn">Ingredient</th>
+                    <th>Quantity</th>
+                    <th>Quantity Type</th>
+                    <th>Modify</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr *ngFor="let ingredient of ingredientList; let i = index">
+                    <td class="ingredientColumn">{{ ingredient.ingredientName }}</td>
+                    <td>{{ ingredient.quantity }}</td>
+                    <td>{{ ingredient.quantityType }}</td>
+                    <td>
+                        <a class="editIngredientButton" (click)="editIngredient(i)">
+                            <img class="image" src="../../assets/img/editIcon.png" alt="Edit">
+                        </a>
+                        <a class="deleteIngredientButton" (click)="deleteIngredient(i)">
+                            <img class="image" src="../../assets/img/deleteIcon.png" alt="Delete">
+                        </a>
+                    </td>
+                  </tr>
+                  <tr class="emptyRow">
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                  </tr>
+                </tbody>
+              </table>
+        </div>
+
+        <button class="generateRecipesButton" (click)="generateRecipes()">
+          Generate Recipes
+        </button>
+      </div>
+  
+</div>

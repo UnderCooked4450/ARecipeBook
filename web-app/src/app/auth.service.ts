@@ -24,8 +24,6 @@ export class AuthService {
   }
 
   logout(): Observable<any> {
-    // You can perform any necessary cleanup here (e.g., clearing tokens, session data, etc.)
-    // For now, let's simulate a successful logout
     return of({ success: true }).pipe(
       tap(() => {
         // Redirect the user to the login page after successful logout
@@ -33,4 +31,11 @@ export class AuthService {
       })
     );
   }
+
+searchRecipes(ingredients: string[]): Observable<Array<{ title: string, url: string }>> {
+  const backendUrl = 'http://localhost:3000/search'; // Backend URL
+  return this.http.post<Array<{ title: string, url: string }>>(backendUrl, { ingredients });
+}
+
+  
 }

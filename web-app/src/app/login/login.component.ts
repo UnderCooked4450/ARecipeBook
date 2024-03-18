@@ -56,7 +56,11 @@ export class LoginComponent {
       },
       error: error => {
         console.error('Error password and username do no match', error);
-        // Handle login error
+        if (error.error && error.error.message) {
+          alert(error.error.message);
+        } else {
+          alert('An error occurred during login.');
+        }
       }
     });
   }
@@ -76,7 +80,11 @@ export class LoginComponent {
       },
       error: error => {
         console.error('Sign up error:', error);
-        // Handle sign up error
+        if (error.error && error.error.message) {
+          alert(error.error.message);
+        } else {
+          alert('An error occurred during sign up.');
+        }
       }
     });
   }
