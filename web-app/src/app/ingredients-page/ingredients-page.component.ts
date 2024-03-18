@@ -2,6 +2,7 @@ import { Component } from '@angular/core';
 import { Router } from '@angular/router';
 import { FormsModule } from '@angular/forms';
 import { CommonModule } from '@angular/common';
+import { AuthService } from '../auth.service';
 
 @Component({
   selector: 'app-ingredients-page',
@@ -17,7 +18,7 @@ export class IngredientsPageComponent {
   deletedIngredientIndex: number | null = null;
   
 
-  constructor(private router: Router) {
+  constructor(private authService: AuthService, private router: Router) {
     this.ingredientList = [];
     console.log(document);
   }
@@ -146,12 +147,27 @@ export class IngredientsPageComponent {
     this.editedIngredientIndex = null;
   }
 
-  generateRecipes() {
-    //ingredientList.write to file
-    //or send it to the new page or something, idk, ingredientList has all the ingredient objects
-    this.router.navigate(['/ingredientsPage'/*replace me Puja*/]);
-    console.log("generate receipes button pushed");
+  generateRecipes(event?: Event): void {
+
+    if (event) {
+      event.preventDefault(); // to prevent another google tab from opening 
+    }
+  
+  const ingredientNames = this.ingredientList.map(ingredient => ingredient.ingredientName);
+ 
+  this.authService.searchRecipes(ingredientNames).subscribe({
+    next: (recipes: Array<{ title: string, url: string }>) => {
+      this.authService.setRecipes(recipes); // Store recipes in service
+      this.router.navigate(['/recipe-page']);
+
+      console.log(recipes);
+    },
+    error: (error: any) => {
+      console.error('Error fetching recipes:', error);
+    }
+  });
   }
+
   homePage() {
     this.router.navigate(['/homepage']);
     console.log("home page button pushed");
