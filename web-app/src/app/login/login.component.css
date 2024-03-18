@@ -120,3 +120,16 @@ button {
       width: 90%; /* Adjusted for smaller screens */
   }
 }
+
+.termsLink {
+  background: none;
+    border: none;
+    color: blue; 
+    text-decoration: underline;
+    cursor: pointer;
+}
+
+.termsLink:active {
+  color:darkblue;
+}
+

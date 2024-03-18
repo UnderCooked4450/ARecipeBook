@@ -2,17 +2,22 @@ import { Component } from '@angular/core';
 import { AuthService } from '../auth.service';
 import { FormsModule } from '@angular/forms';
 import { Router } from '@angular/router';
+import { MatDialog, MatDialogModule, MatDialogConfig } from '@angular/material/dialog';
+import { TermsDialogComponent } from '../terms-dialog/terms-dialog.component';
 
 
 @Component({
   selector: 'app-login',
   standalone: true,
-  imports: [FormsModule],
+  imports: [FormsModule, MatDialogModule],
   templateUrl: './login.component.html',
   styleUrl: './login.component.css'
 })
 export class LoginComponent {
   
+  //moved constructor to top of class
+  constructor(private dialog: MatDialog, private authService: AuthService, private router: Router) {}
+
   //login input vars
   loginEmail = '';
   loginPassword = '';
@@ -37,8 +42,6 @@ export class LoginComponent {
     this.isShowLogin = true; 
     this.isShowRegister = false;  
   }  
-
-  constructor(private authService: AuthService, private router: Router) {}
 
   login() {
     const credentials = {
@@ -87,6 +90,21 @@ export class LoginComponent {
         }
       }
     });
+  }
+
+  openTermsDialog(): void {
+    const dialogConfig = new MatDialogConfig();
+
+    // Disable closing by clicking outside the dialog
+    dialogConfig.disableClose = true;
+    // Focus on the first focusable element inside the dialog
+    dialogConfig.autoFocus = true;
+    // Adjust width as needed 
+    dialogConfig.width = '500px'; 
+    // Apply custom styling to the dialog
+    dialogConfig.panelClass = 'custom-dialog-container'; 
+
+    const dialogRef = this.dialog.open(TermsDialogComponent, dialogConfig);
   }
 }
 
