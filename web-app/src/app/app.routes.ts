@@ -17,5 +17,6 @@ export const routes: Routes = [
   { path: 'ingredientsPage', component: IngredientsPageComponent },
   { path: 'timer', component: TimerComponent },
   {path:'saved-recipe', component: SavedRecipesComponent},
-  { path: 'ml-results', component: MlResultsComponent}
+  { path: 'ml-results', component: MlResultsComponent},
+  {path: 'recipe-page', component: RecipePageComponent}
 ];
