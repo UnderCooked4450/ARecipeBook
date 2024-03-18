@@ -1,11 +1,13 @@
 import { Component } from '@angular/core';
 import { AuthService } from '../auth.service';
 import { Router } from '@angular/router';
+import { FormsModule } from '@angular/forms';
+import { CommonModule } from '@angular/common';
 
 @Component({
   selector: 'app-home',
   standalone: true,
-  imports: [],
+  imports: [FormsModule, CommonModule],
   templateUrl: './home.component.html',
   styleUrl: './home.component.css',
 })
@@ -13,6 +15,8 @@ import { Router } from '@angular/router';
 
 
 export class HomeComponent {
+  selectedIngredients: string = '';
+  recipeLinks: Array<{ title: string, url: string }> = [];
 
   constructor(private authService: AuthService, private router: Router) {}
 
@@ -30,10 +34,22 @@ export class HomeComponent {
     });
   }
 
+  searchrecipe() {
+    this.authService.searchRecipes([this.selectedIngredients]).subscribe({
+      next: (links) => {
+        this.recipeLinks = links;
+      },
+      error: (error) => {
+        console.error('Search error:', error);
+      }
+    });
+  }
+  
   addIngredient() {
     this.router.navigate(['/ingredientsPage']);
     console.log("ingredient button pushed");
   }
+
 
   camera() {
     this.router.navigate(['/camera']);
@@ -42,5 +58,9 @@ export class HomeComponent {
 
   timer() {
     this.router.navigate(['/timer']);
+  }
+
+  savedRecipes() {
+    this.router.navigate(['/saved-recipe'])
   }
 }
