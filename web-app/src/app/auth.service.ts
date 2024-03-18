@@ -12,6 +12,7 @@ import { Router } from '@angular/router'; // Import the Router service
 })
 export class AuthService {
   private baseUrl = environment.apiUrl;
+  private recipes: any[] = [];
 
   constructor(private http: HttpClient, private router: Router) {}
 
@@ -37,5 +38,11 @@ searchRecipes(ingredients: string[]): Observable<Array<{ title: string, url: str
   return this.http.post<Array<{ title: string, url: string }>>(backendUrl, { ingredients });
 }
 
-  
+setRecipes(recipes: any[]): void {
+  this.recipes = recipes;
+}
+
+getRecipes(): any[] {
+  return this.recipes;
+} 
 }
