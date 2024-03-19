@@ -107,22 +107,37 @@ export class LoginComponent {
       password: this.signUpPassword, // Get from the form input
       confirmPassword: this.confirmPassword,
     };
-
-    this.authService.signUp(user).subscribe({
-      next: value => {
-        console.log('Sign up successful:', value);
-        // If sign up is successful, navigate to the homepage
-        this.router.navigate(['/homepage']);
-      },
-      error: error => {
-        console.error('Sign up error:', error);
-        if (error.error && error.error.message) {
-          alert(error.error.message);
-        } else {
-          alert('An error occurred during sign up.');
+    
+    //if email address is invalid
+    if (!this.isValidEmail(user.email)) {
+      alert("Invalid email address");
+    }
+    //if email address is valid
+    else {
+      //sign up user and login
+      this.authService.signUp(user).subscribe({
+        next: value => {
+          console.log('Sign up successful:', value);
+          // If sign up is successful, navigate to the homepage
+          this.router.navigate(['/homepage']);
+        },
+        error: error => {
+          console.error('Sign up error:', error);
+          if (error.error && error.error.message) {
+            alert(error.error.message);
+          } else {
+            alert('An error occurred during sign up.');
+          }
         }
-      }
-    });
+      });
+    }
+  }
+
+  //check if email is valid
+  isValidEmail(email : string): boolean {
+    const emailRegex: RegExp = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/;
+
+    return emailRegex.test(email);
   }
 
   openTermsDialog(): void {
