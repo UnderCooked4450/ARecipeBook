@@ -4,6 +4,7 @@ import { FormsModule } from '@angular/forms';
 import { Router } from '@angular/router';
 import { MatDialog, MatDialogModule, MatDialogConfig } from '@angular/material/dialog';
 import { TermsDialogComponent } from '../terms-dialog/terms-dialog.component';
+import { ForgotPasswordDialogComponent } from '../forgot-password-dialog/forgot-password-dialog.component';
 
 
 @Component({
@@ -105,6 +106,22 @@ export class LoginComponent {
     dialogConfig.panelClass = 'custom-dialog-container'; 
 
     const dialogRef = this.dialog.open(TermsDialogComponent, dialogConfig);
+  }
+
+  openForgotPasswordDialog(): void {
+    const dialogConfig = new MatDialogConfig();
+
+    // Disable closing by clicking outside the dialog
+    dialogConfig.disableClose = true;
+    // Focus on the first focusable element inside the dialog
+    dialogConfig.autoFocus = true;
+    // Adjust width as needed 
+    dialogConfig.width = '500px'; 
+    // Apply custom styling to the dialog
+    dialogConfig.panelClass = 'custom-dialog-container'; 
+
+                                        //Change Me//
+    const dialogRef = this.dialog.open(ForgotPasswordDialogComponent, dialogConfig);
   }
 }
 
