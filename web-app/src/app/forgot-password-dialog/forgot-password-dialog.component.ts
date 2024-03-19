@@ -34,6 +34,9 @@ export class ForgotPasswordDialogComponent {
     //check if input is valid email address
     if (this.isValidEmail(this.emailInput)) {
       alert("Email sent successfully");
+
+      //send an email logic here//
+
       this.dialogRef.close();
     }
     else {
