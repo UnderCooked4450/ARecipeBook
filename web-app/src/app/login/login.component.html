@@ -13,9 +13,18 @@
             <input type="email" placeholder="Email Address" required [(ngModel)]="loginEmail" name="loginEmail">
             <input type="password" placeholder="Password" required [(ngModel)]="loginPassword" name = "loginPassword">
             <div class="auth-remember">
-              <!--<input type="checkbox" id="rememberMe" [(ngModel)]="rememberMe">
-              <label for="rememberMe">Remember Me</label>
-              --><a class="links" (click)="openForgotPasswordDialog()">Forgot Password?</a>
+              
+              
+              
+                <!---->
+              <!--<input type="checkbox" id="rememberMe" [(ngModel)]="rememberMe">-->
+              <input name="urMOM" type="checkbox" (change)="toggleRememberMe($event)" [(ngModel)]="rememberMe">
+
+              <label id="rememberMeLabel" for="rememberMe">Remember Me</label>
+             <!---->
+              
+              
+              <a class="links" (click)="openForgotPasswordDialog()">Forgot Password?</a>
             </div>
             <button (click)="login()" type="submit">Login</button>
           </form>

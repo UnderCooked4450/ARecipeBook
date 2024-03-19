@@ -38,6 +38,10 @@ body {
     }
 }
 
+#rememberMeLabel {
+  padding-right: 60px;
+}
+
 
 input[type="email"],
 input[type="password"] {
