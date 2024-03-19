@@ -42,6 +42,19 @@ button {
 }
 
 .header {
-  display: block;
-  float: left;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+
+
+.title {
+  flex-grow: 1;
+  text-align: center;
+  padding-right: 10%;
+}
+
+p {
+  font-size: 32px;
 }
