@@ -17,18 +17,22 @@ import { ForgotPasswordDialogComponent } from '../forgot-password-dialog/forgot-
 export class LoginComponent {
   loginEmail: string = '';
   loginPassword: string = '';
-  rememberMe: boolean = false;
+  rememberMe: boolean = true;
   //moved constructor to top of class
   constructor(private dialog: MatDialog, private authService: AuthService, private router: Router) { }
 
   ngOnInit() {
+    const storedRememberMe = localStorage.getItem('rememberMe');
+    this.rememberMe = storedRememberMe === 'true';
+    
     const storedEmail = localStorage.getItem('rememberedEmail');
     const storedPassword = localStorage.getItem('rememberedPassword');
-    const rememberMe = localStorage.getItem('rememberMe');
-    if (storedEmail && storedPassword && rememberMe ==='true') {
+    
+    if (storedEmail && storedPassword && this.rememberMe) {
       this.loginEmail = storedEmail;
       this.loginPassword = storedPassword;
       this.rememberMe = true;
+      console.log("rememberMe True in init");
     }
     // else {
     //   this.loginEmail = '';
@@ -63,27 +67,38 @@ export class LoginComponent {
     this.isShowRegister = false;  
   }  
 
+  ///////////
+  toggleRememberMe(event: any) {
+    this.rememberMe = event.target.checked;
+    console.log(this.rememberMe);
+  }
+  
+
   login() {
     const credentials = {
       email: this.loginEmail, // Get from the form input
       password: this.loginPassword, // Get from the form input
-     // rememberMe: this.rememberMe 
+      rememberMe: this.rememberMe 
+      
     };
-
+    //alert(credentials.email +  ", " + credentials.password + ", "+ credentials.rememberMe)
+    if (credentials.rememberMe) {
+      localStorage.setItem('rememberedEmail', this.loginEmail);
+      localStorage.setItem('rememberedPassword', this.loginPassword);
+      localStorage.setItem('rememberMe', 'true');
+      //alert("entered");
+      
+    } else {
+      // If  unchecked, clear stored credentials
+      localStorage.removeItem('rememberedEmail');
+      localStorage.removeItem('rememberedPassword');
+      localStorage.removeItem('rememberMe');
+    }
     this.authService.login(credentials).subscribe({
       next: value => {
         console.log('Login successful:', value);
         //check if remember me is clicked and store if it is
-        if (this.rememberMe) {
-          localStorage.setItem('rememberedEmail', this.loginEmail);
-          localStorage.setItem('rememberedPassword', this.loginPassword);
-          localStorage.setItem('rememberMe', 'true');
-        } else {
-          // If  unchecked, clear stored credentials
-          localStorage.removeItem('rememberedEmail');
-          localStorage.removeItem('rememberedPassword');
-          localStorage.removeItem('rememberMe');
-        }
+        
         // If login is successful, navigate to the homepage
         this.router.navigate(['/homepage']);
         window.location.href = '/homepage';
