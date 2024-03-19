@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { AuthService } from '../auth.service';
 import { FormsModule } from '@angular/forms';
 import { Router } from '@angular/router';
@@ -15,13 +15,32 @@ import { ForgotPasswordDialogComponent } from '../forgot-password-dialog/forgot-
   styleUrl: './login.component.css'
 })
 export class LoginComponent {
-  
+  loginEmail: string = '';
+  loginPassword: string = '';
+  rememberMe: boolean = false;
   //moved constructor to top of class
-  constructor(private dialog: MatDialog, private authService: AuthService, private router: Router) {}
+  constructor(private dialog: MatDialog, private authService: AuthService, private router: Router) { }
 
-  //login input vars
-  loginEmail = '';
-  loginPassword = '';
+  ngOnInit() {
+    const storedEmail = localStorage.getItem('rememberedEmail');
+    const storedPassword = localStorage.getItem('rememberedPassword');
+    const rememberMe = localStorage.getItem('rememberMe');
+    if (storedEmail && storedPassword && rememberMe ==='true') {
+      this.loginEmail = storedEmail;
+      this.loginPassword = storedPassword;
+      this.rememberMe = true;
+    }
+    // else {
+    //   this.loginEmail = '';
+    //   this.loginPassword = '';
+    //   this.rememberMe = false;
+    // }
+  }
+
+  //login input vars - moved to top of class and initialized in constructor
+    //loginEmail = '';
+    //loginPassword = '';
+
 
   //signup input vars
   signUpEmail = ''; 
@@ -29,7 +48,7 @@ export class LoginComponent {
   confirmPassword = '';
 
   
- //rememberMe = false;
+  
 
   //login vs Register form vars
   isShowLogin = false; 
@@ -54,6 +73,17 @@ export class LoginComponent {
     this.authService.login(credentials).subscribe({
       next: value => {
         console.log('Login successful:', value);
+        //check if remember me is clicked and store if it is
+        if (this.rememberMe) {
+          localStorage.setItem('rememberedEmail', this.loginEmail);
+          localStorage.setItem('rememberedPassword', this.loginPassword);
+          localStorage.setItem('rememberMe', 'true');
+        } else {
+          // If  unchecked, clear stored credentials
+          localStorage.removeItem('rememberedEmail');
+          localStorage.removeItem('rememberedPassword');
+          localStorage.removeItem('rememberMe');
+        }
         // If login is successful, navigate to the homepage
         this.router.navigate(['/homepage']);
         window.location.href = '/homepage';
@@ -67,6 +97,8 @@ export class LoginComponent {
         }
       }
     });
+
+    
   }
 
   signUp() {
@@ -120,7 +152,7 @@ export class LoginComponent {
     // Apply custom styling to the dialog
     dialogConfig.panelClass = 'custom-dialog-container'; 
 
-                                        //Change Me//
+                                       
     const dialogRef = this.dialog.open(ForgotPasswordDialogComponent, dialogConfig);
   }
 }
