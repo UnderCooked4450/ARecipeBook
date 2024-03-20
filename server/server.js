@@ -4,7 +4,7 @@ const bodyParser = require("body-parser");
 const cors = require("cors");
 const { client, connectToMongoDB } = require("./mongodb.js");
 const bcrypt = require("bcryptjs"); // Require bcryptjs
-
+const ML= require("./routes/ml.js")
 const { MongoClient, ServerApiVersion } = require("mongodb");
 
 const app = express();

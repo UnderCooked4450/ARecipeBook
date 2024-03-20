@@ -2,7 +2,6 @@
   rel="stylesheet"
   href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css"
 />
-
 <div class="container">
   <div class="header">
     <div class="homebutton">
@@ -15,14 +14,11 @@
       <div class="ingredient-list">
         <h4>Ingredients:</h4>
         <ul>
-          <li>ground beef</li>
-          <li>garlic</li>
-          <li>onion</li>
-          <li>pasta</li>
+          <li *ngFor="let item of this.foodlist">{{item.name}}</li>
         </ul>
       </div>
       <div class="img">
-        <img src="../assets/img/ml-basic.png" />
+        <img [src]="dataImage?.imageAsDataUrl"/>
       </div>
     </div>
   </div>

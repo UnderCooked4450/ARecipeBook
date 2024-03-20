@@ -39,6 +39,8 @@ export class CameraPageComponent implements OnInit {
     boolean | string
   >();
 
+  private value: any;
+
   sysImage = '';
 
   public ngOnInit(): void {
@@ -71,25 +73,12 @@ export class CameraPageComponent implements OnInit {
   public handleImage(webcamImage: WebcamImage): void {
     this.webcamImage = webcamImage;
     this.sysImage = webcamImage!.imageAsBase64;
-    console.log(`${this.baseUrl}/lensapi`)
-    const imagesrc={image: this.sysImage}
-    this.http.post(`${this.baseUrl}/lensapi/`, imagesrc).subscribe({
-      next: (value:any) => {
-        console.log('Picture success:', value);
-        this.webcamImage=value
-      },
-      error: error => {
-        console.error('erro1:', error);
-        if (error.error && error.error.message) {
-          alert(error.error.message);
-        } else {
-          alert('error2');
-          console.log(error)
-        }
-      }
-    })
+    this.router.navigate(['/ml-results', this.webcamImage]);
   }
-
+  public getValue()
+  {
+    return this.value;
+  }
   public cameraWasSwitched(deviceId: string): void {
     console.log('active device: ' + deviceId);
     this.deviceId = deviceId;
