@@ -1,7 +1,9 @@
 import { Component, OnInit } from '@angular/core';
 import { AuthService } from '../auth.service';
-import { Router } from '@angular/router';
+import { Router, ActivatedRoute } from '@angular/router';
 import { CommonModule } from '@angular/common';
+
+
 
 @Component({
   selector: 'app-recipe-page',
@@ -12,24 +14,39 @@ import { CommonModule } from '@angular/common';
 })
 export class RecipePageComponent implements OnInit {
 
-  recipes: Array<{ title: string, url: string }> = [];
+  recipeLinks: Array<{ title: string, url: string }> = [];
 
-  constructor(private authService: AuthService, private router: Router) {}
+  selectedRecipe: any;
+
+  constructor(private authService: AuthService, private router: Router, private route: ActivatedRoute) {}
 
   ngOnInit(): void {
-   
-    this.recipes = this.authService.getRecipes(); 
+  this.recipeLinks = this.authService.getRecipes()
+  console.log("Array: ", this.recipeLinks)
+  console.log("Length of array passed", this.recipeLinks.length)
+  
+}
 
 
-    // Remove the first link from the array
-    if (this.recipes.length > 0) {
-      this.recipes.shift(); // Removes the first element from the array
-    }
+  scrapeRecipe(url: string): void {
+    this.authService.scrapeRecipe(url).subscribe({
+      next: (recipe: any) => { // Explicitly typing the 'recipe' parameter
+        this.selectedRecipe = recipe;
+        console.log('Scraped Recipe:', recipe);
+      },
+      error: (error) => {
+        console.error('Error scraping recipe:', error);
+      }
+    });
   }
 
   backButton(): void {
+
+    // Clear the selected recipe
+    this.selectedRecipe = null;
+
     // Reset recipes array
-    this.recipes = [];
+    this.recipeLinks = [];
     // Navigate back to the ingredients-list page
     this.router.navigate(['/ingredientsPage']);
   }

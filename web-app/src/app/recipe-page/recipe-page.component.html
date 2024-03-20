@@ -1,18 +1,30 @@
-<div class = 'container'>
-    <div *ngIf="recipes.length > 0">
-        <h2>Recipes</h2>
-        <ul>
-          <li *ngFor="let recipe of recipes">
-            <a [href]="recipe.url" target="_blank">{{ recipe.title }}</a>
-          </li>
-        </ul>
-      </div>
-      
-      <div *ngIf="recipes.length === 0">
-        <p>No recipes found.</p>
-      </div>
+<div class="container">
+  <div *ngIf="selectedRecipe">
+    <h2>{{ selectedRecipe.title }}</h2>
+    <p><strong>URL:</strong> <a [href]="selectedRecipe.url" target="_blank">{{ selectedRecipe.url }}</a></p>
+    <p><strong>Cooking Time:</strong> {{ selectedRecipe.cookingTime }} minutes</p>
+    <h3>Ingredients:</h3>
+    <ul>
+      <li *ngFor="let ingredient of selectedRecipe.ingredients">{{ ingredient }}</li>
+    </ul>
+    <h3>Instructions:</h3>
+    <ul>
+      <li *ngFor="let instruction of selectedRecipe.instructions">{{ instruction }}</li>
+    </ul>
+  </div>
 
-      <button class = 'backButton'(click)="backButton()">Back to Ingredients</button>
+  <div *ngIf="!selectedRecipe && recipeLinks.length > 0">
+    <h2>Recipes</h2>
+    <ul>
+      <li *ngFor="let recipe of recipeLinks">
+        <button (click)="scrapeRecipe(recipe.url)">{{ recipe.title }}</button>
+      </li>
+    </ul>
+  </div>
+
+  <div *ngIf="recipeLinks.length === 0">
+    <p>No recipes found.</p>
+  </div>
+
+  <button class="backButton" (click)="backButton()">Back to Ingredients</button>
 </div>
-
-  

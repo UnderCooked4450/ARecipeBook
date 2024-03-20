@@ -16,6 +16,8 @@ export class IngredientsPageComponent {
   ingredientList: {ingredientName: string, quantity: number, quantityType: string}[];
   editedIngredientIndex: number | null = null;
   deletedIngredientIndex: number | null = null;
+  matchedTitles: Array<{ title: string, url: string }> = [];
+
   
 
   constructor(private authService: AuthService, private router: Router) {
@@ -147,26 +149,29 @@ export class IngredientsPageComponent {
     this.editedIngredientIndex = null;
   }
 
-  generateRecipes(event?: Event): void {
 
-    if (event) {
-      event.preventDefault(); // to prevent another google tab from opening 
-    }
-  
+  recipePage() {
+  //extracting ingredient Names from list 
   const ingredientNames = this.ingredientList.map(ingredient => ingredient.ingredientName);
- 
-  this.authService.searchRecipes(ingredientNames).subscribe({
-    next: (recipes: Array<{ title: string, url: string }>) => {
-      this.authService.setRecipes(recipes); // Store recipes in service
+  this.authService.generateRecipes(ingredientNames).subscribe({
+    next: (links) => {
+      this.matchedTitles = links;
+      this.authService.setRecipes(this.matchedTitles);
       this.router.navigate(['/recipe-page']);
-
-      console.log(recipes);
     },
-    error: (error: any) => {
-      console.error('Error fetching recipes:', error);
+    error: (error) => {
+      console.error('Search error:', error);
     }
   });
   }
+  /*
+recipePage(){
+  const ingredientNames = this.ingredientList.map(ingredient => ingredient.ingredientName);
+  this.authService.setIngredientNames(ingredientNames);
+  this.router.navigate(['/recipe-page']);
+
+}*/
+  
 
   homePage() {
     this.router.navigate(['/homepage']);

@@ -7,14 +7,30 @@ import { tap } from 'rxjs/operators';
 import { of } from 'rxjs';
 import { Router } from '@angular/router'; // Import the Router service
 
+// Define an interface to represent the structure of the scraped data
+interface ScrapedData {
+  // Define the properties based on the structure of the scraped data
+  title: string;
+  time: string;
+  yields: string;
+  ingredients: string[];
+  instructions: string;
+  nutrients: string;
+}
+
+
+
 @Injectable({
   providedIn: 'root',
 })
 export class AuthService {
   private baseUrl = environment.apiUrl;
-  private recipes: any[] = [];
-
-  constructor(private http: HttpClient, private router: Router) {}
+  scrapedData: ScrapedData;
+  private ingredientNames: string[] = [];
+  
+  constructor(private http: HttpClient, private router: Router) {
+    this.scrapedData = {} as ScrapedData; 
+  }
 
   login(credentials: { email: string; password: string }): Observable<any> {
     return this.http.post(`${this.baseUrl}/login`, credentials);
@@ -37,12 +53,31 @@ searchRecipes(ingredients: string[]): Observable<Array<{ title: string, url: str
   const backendUrl = 'http://localhost:3000/search'; // Backend URL
   return this.http.post<Array<{ title: string, url: string }>>(backendUrl, { ingredients });
 }
-
-setRecipes(recipes: any[]): void {
-  this.recipes = recipes;
+generateRecipes(ingredients: string[]): Observable<Array<{ title: string, url: string }>> {
+  const backendUrl = 'http://localhost:3000/generateRecipe'; // Backend URL
+  return this.http.post<Array<{ title: string, url: string }>>(backendUrl, { ingredients })
 }
 
-getRecipes(): any[] {
-  return this.recipes;
-} 
+recipes: { title: string, url: string }[] = [];
+
+setRecipes(recipes: { title: string, url: string }[]): void {
+  this.recipes = recipes;
+  console.log(recipes); // Checking if recipes are set 
+}
+
+getRecipes(): { title: string, url: string }[] {
+  return this.recipes; 
+}
+setIngredientNames(ingredients: string[]): void {
+  this.ingredientNames = ingredients;
+}
+
+getIngredientNames(): string[] {
+  return this.ingredientNames;
+}
+scrapeRecipe(url: string): Observable<ScrapedData> {
+  const backendUrl = 'http://localhost:3000/scrape-recipe'; 
+  return this.http.post<ScrapedData>(backendUrl, { url });
+}
+
 }
