@@ -15,7 +15,6 @@ import { CommonModule } from '@angular/common';
 export class RecipePageComponent implements OnInit {
 
   recipeLinks: Array<{ title: string, url: string }> = [];
-
   selectedRecipe: any;
 
   constructor(private authService: AuthService, private router: Router, private route: ActivatedRoute) {}
@@ -23,10 +22,8 @@ export class RecipePageComponent implements OnInit {
   ngOnInit(): void {
   this.recipeLinks = this.authService.getRecipes()
   console.log("Array: ", this.recipeLinks)
-  console.log("Length of array passed", this.recipeLinks.length)
-  
+  console.log("Length of array passed", this.recipeLinks.length) 
 }
-
 
   scrapeRecipe(url: string): void {
     this.authService.scrapeRecipe(url).subscribe({
@@ -41,13 +38,17 @@ export class RecipePageComponent implements OnInit {
   }
 
   backButton(): void {
-
     // Clear the selected recipe
     this.selectedRecipe = null;
-
     // Reset recipes array
     this.recipeLinks = [];
     // Navigate back to the ingredients-list page
     this.router.navigate(['/ingredientsPage']);
   }
+
+  // need to figure out routing back to list generated still
+//   backtoRecipes(): void {
+//     this.router.navigate([], { fragment: 'recipesSection' });
+// }
+
 }
