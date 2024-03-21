@@ -24,34 +24,34 @@ body {
 
 
   .recipe-details {
-    max-height: 500px; /* Adjust the maximum height as needed */
-    overflow-y: auto; /* Enable vertical scroll if content overflows */
-    padding: 10px; /* Add padding to the container */
-    border: 1px solid #ccc; /* Add a border for visual separation */
+    max-height: 450px; 
+    overflow-y: auto; 
+    padding: 10px; 
+    border: 1px solid #ccc; 
 }
 
 .ingredients-list, .instructions-list {
-    margin-top: 10px; /* Add margin between ingredients and instructions */
+    margin-top: 10px; 
 }
 
 .ingredients-list ul, .instructions-list ul {
-    list-style-type: none; /* Remove default list styles */
-    padding: 0; /* Remove default padding */
+    list-style-type: none; 
+    padding: 0;
 }
 
 .ingredients-list ul li, .instructions-list ul li {
-    margin-bottom: 5px; /* Add margin between list items */
+    margin-bottom: 5px; 
 }
 
 .ingredients-list ul li:before, .instructions-list ul li:before {
-    content: counter(item-counter); /* Use counter to display list numbers */
-    counter-increment: item-counter; /* Increment the counter for each list item */
-    margin-right: 5px; /* Add space between counter and list item */
+    content: counter(item-counter); 
+    counter-increment: item-counter; 
+    margin-right: 5px; 
 }
 
 
   .recipe-container {
-    max-height: 400px;  /* Adjust the value as needed based on your layout */
+    max-height: 400px;  
     overflow-y: auto;
     padding: 25px;
   }
@@ -73,16 +73,16 @@ body {
     cursor: pointer;
     color: #333; 
     font-family: 'Poppins', sans-serif; 
-    font-size: 16px; /* Set desired font size */
-    text-align: left; /* Align text to the left */
-    padding: 0; /* Remove default padding */
-    width: 100%; /* Ensure the button takes the full width of its parent */
+    font-size: 16px; 
+    text-align: left;
+    padding: 0; 
+    width: 100%; 
     white-space: normal; 
   }
   
   .recipe-list li button:hover {
-    color: #f88f78; /* Change text color on hover */
-    text-decoration: underline; /* Add underline on hover */
+    color: #f88f78;
+    text-decoration: underline; 
   }
 
   .backButton {
