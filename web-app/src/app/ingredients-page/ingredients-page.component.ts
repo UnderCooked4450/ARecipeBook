@@ -2,6 +2,7 @@ import { Component } from '@angular/core';
 import { Router } from '@angular/router';
 import { FormsModule } from '@angular/forms';
 import { CommonModule } from '@angular/common';
+import { AuthService } from '../auth.service';
 
 @Component({
   selector: 'app-ingredients-page',
@@ -15,9 +16,11 @@ export class IngredientsPageComponent {
   ingredientList: {ingredientName: string, quantity: number, quantityType: string}[];
   editedIngredientIndex: number | null = null;
   deletedIngredientIndex: number | null = null;
+  matchedTitles: Array<{ title: string, url: string }> = [];
+
   
 
-  constructor(private router: Router) {
+  constructor(private authService: AuthService, private router: Router) {
     this.ingredientList = [];
     console.log(document);
   }
@@ -146,12 +149,29 @@ export class IngredientsPageComponent {
     this.editedIngredientIndex = null;
   }
 
-  generateRecipes() {
-    //ingredientList.write to file
-    //or send it to the new page or something, idk, ingredientList has all the ingredient objects
-    this.router.navigate(['/ingredientsPage'/*replace me Puja*/]);
-    console.log("generate receipes button pushed");
+
+  recipePage() {
+  // Check if the ingredient list is empty
+  if (this.ingredientList.length === 0) {
+    // Display an alert window asking the user to add ingredients first
+    alert('Please add ingredients first.');
+    return; 
   }
+
+  //extracting ingredient Names from list 
+  const ingredientNames = this.ingredientList.map(ingredient => ingredient.ingredientName);
+  this.authService.generateRecipes(ingredientNames).subscribe({
+    next: (links) => {
+      this.matchedTitles = links;
+      this.authService.setRecipes(this.matchedTitles);
+      this.router.navigate(['/recipe-page']);
+    },
+    error: (error) => {
+      console.error('Search error:', error);
+    }
+  });
+  }
+
   homePage() {
     this.router.navigate(['/homepage']);
     console.log("home page button pushed");

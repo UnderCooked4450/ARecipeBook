@@ -2,10 +2,12 @@ require("dotenv").config();
 const express = require("express");
 const bodyParser = require("body-parser");
 const cors = require("cors");
+const { spawn } = require('child_process'); 
 const { client, connectToMongoDB } = require("./mongodb.js");
 const bcrypt = require("bcryptjs"); // Require bcryptjs
-
+const fs = require('fs');
 const { MongoClient, ServerApiVersion } = require("mongodb");
+
 
 const app = express();
 
@@ -39,6 +41,7 @@ app.use(
 
 //recipe search
 const puppeteer = require("puppeteer");
+const { hostname } = require("os");
 
 app.post("/search", async (req, res) => {
   try {
@@ -47,7 +50,7 @@ app.post("/search", async (req, res) => {
     const url = `https://www.google.com/search?q=${query}`;
     console.log("url: " + url);
 
-    const browser = await puppeteer.launch({ headless: false });
+    const browser = await puppeteer.launch({ headless: true }); // headless mode prevents new browser from opening
     const page = await browser.newPage();
     //now the link is fixed
     await page.goto(url);
@@ -78,6 +81,99 @@ app.get("/search", (req, res) => {
   res.send("Search route is accessible");
 });
 
+// Load the JSON file containing website URLs
+const data = './recipe_cites.json';
+const websiteData = JSON.parse(fs.readFileSync(data, 'utf8'));
+
+// Function to extract titles from the websites in json
+const extractTitlesFromJson = () => {
+  const titles = [];
+  websiteData.websites.forEach(website => {
+      const title = website.split('//')[1].split('/')[0];
+      titles.push(title);
+  });
+  return titles;
+  
+};
+
+//generate recipe links
+app.post("/generateRecipe", async (req, res) => {
+  try {
+      const ingredients = req.body.ingredients.join(" ");
+      const query = encodeURIComponent(`${ingredients} recipe`);
+      const url = `https://www.google.com/search?q=${query}`;
+
+      const browser = await puppeteer.launch({ headless: true });
+      const page = await browser.newPage();
+      await page.goto(url);
+
+      // Scrape the search result host names and URLs
+      const scrapedHosts = await page.evaluate(() => {
+        const Hosts = [];
+        const anchors = document.querySelectorAll('a');
+        
+
+        anchors.forEach(anchor => {
+          const url = anchor.href;
+          try {
+              const title = anchor.innerText;
+              const hostname = new URL(url).hostname;
+              Hosts.push({ title, url, hostname });
+          } catch (error) {
+              console.error(`Invalid URL: ${url}`);
+          }
+      });
+  
+      return Hosts;
+    },);
+    
+      console.log(scrapedHosts);
+      await browser.close();
+
+      // Extract titles from the JSON file
+      const jsonTitles = extractTitlesFromJson();
+    
+      const matchedTitles = [];
+      scrapedHosts.forEach(scrapedHost => {
+      if (scrapedHost.title.trim() !== '' && //removing links with empty titles
+          jsonTitles.some(jsonTitle => scrapedHost.hostname.includes(jsonTitle)) && //adding links that match domain of json file
+          !scrapedHost.url.endsWith('.html')) //removing html links 
+          { matchedTitles.push({ title: scrapedHost.title, url: scrapedHost.url });
+      }
+});
+
+console.log(matchedTitles);
+      res.json( matchedTitles );
+  } catch (error) {
+      console.error('Error:', error);
+      res.status(500).json({ error: 'An error occurred' });
+  }
+});
+
+
+//post to web scraper to retrieve recipe info ex. ingredients, instructions etc. 
+app.post('/scrape-recipe', (req, res) => {
+  const { url } = req.body;
+
+  const pythonProcess = spawn('python', ['./webscraper.py', url]);
+
+  pythonProcess.stdout.on('data', (data) => {
+    
+      const scrapedData = JSON.parse(data.toString());
+      
+      // Send the scraped data as a JSON response
+      res.json(scrapedData);
+  });
+
+  // Handle errors from the Python script
+  pythonProcess.stderr.on('data', (data) => {
+      console.error(`Error: ${data}`);
+      res.status(500).send('Internal Server Error');
+  });
+});
+
+
+
 app.post("/login", async (req, res) => {
   const { email, password } = req.body;
   try {
@@ -102,6 +198,8 @@ app.post("/login", async (req, res) => {
     res.status(500).json({ success: false, message: "Internal server error" });
   }
 });
+
+
 
 app.post("/signup", async (req, res) => {
   const { email, password, confirmPassword } = req.body;
