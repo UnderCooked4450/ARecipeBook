@@ -17,8 +17,72 @@ body {
     max-width: 400px;
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
     margin: auto; 
-    height: 100vh; 
-    overflow: auto;
+    height: 90vh; 
+    font-family: 'Poppins', sans-serif; 
+    
+  }
+
+
+  .recipe-details {
+    max-height: 500px; /* Adjust the maximum height as needed */
+    overflow-y: auto; /* Enable vertical scroll if content overflows */
+    padding: 10px; /* Add padding to the container */
+    border: 1px solid #ccc; /* Add a border for visual separation */
+}
+
+.ingredients-list, .instructions-list {
+    margin-top: 10px; /* Add margin between ingredients and instructions */
+}
+
+.ingredients-list ul, .instructions-list ul {
+    list-style-type: none; /* Remove default list styles */
+    padding: 0; /* Remove default padding */
+}
+
+.ingredients-list ul li, .instructions-list ul li {
+    margin-bottom: 5px; /* Add margin between list items */
+}
+
+.ingredients-list ul li:before, .instructions-list ul li:before {
+    content: counter(item-counter); /* Use counter to display list numbers */
+    counter-increment: item-counter; /* Increment the counter for each list item */
+    margin-right: 5px; /* Add space between counter and list item */
+}
+
+
+  .recipe-container {
+    max-height: 400px;  /* Adjust the value as needed based on your layout */
+    overflow-y: auto;
+    padding: 25px;
+  }
+  
+  .recipe-list {
+    list-style: decimal; 
+    padding: 0;
+    margin: 0;
+  }
+  
+  .recipe-list li {
+    margin-bottom: 10px;
+    overflow-wrap: break-word; 
+  }
+  
+  .recipe-list li button {
+    background: none;
+    border: none;
+    cursor: pointer;
+    color: #333; 
+    font-family: 'Poppins', sans-serif; 
+    font-size: 16px; /* Set desired font size */
+    text-align: left; /* Align text to the left */
+    padding: 0; /* Remove default padding */
+    width: 100%; /* Ensure the button takes the full width of its parent */
+    white-space: normal; 
+  }
+  
+  .recipe-list li button:hover {
+    color: #f88f78; /* Change text color on hover */
+    text-decoration: underline; /* Add underline on hover */
   }
 
   .backButton {
@@ -26,7 +90,7 @@ body {
     background-color: #f88f78;
     color: white;
     border: none;
-    padding: 15px 20px;
+    padding: 10px 15px;
     border-radius: 15px;
     cursor: pointer;
     outline: none;
