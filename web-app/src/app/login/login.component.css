@@ -38,6 +38,10 @@ body {
     }
 }
 
+#rememberMeLabel {
+  padding-right: 60px;
+}
+
 
 input[type="email"],
 input[type="password"] {
@@ -120,3 +124,16 @@ button {
       width: 90%; /* Adjusted for smaller screens */
   }
 }
+
+.links {
+  background: none;
+    border: none;
+    color: blue; 
+    text-decoration: underline;
+    cursor: pointer;
+}
+
+.links:active {
+  color:darkblue;
+}
+
