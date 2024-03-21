@@ -15,7 +15,7 @@
             <div class="auth-remember">
               <input type="checkbox" id="rememberMe">
               <label for="rememberMe">Remember password</label>
-              <a href="#">Forget password</a>
+              <a class="links" (click)="openForgotPasswordDialog()">Forgot Password?</a>
             </div>
             <button (click)="login()" type="submit">Login</button>
           </form>
@@ -28,7 +28,7 @@
             <button (click)="signUp()" type="submit">Sign Up</button>
           </form>
     </div> 
-        <p>By signing in you are agreeing to our <a class="termsLink" (click)="openTermsDialog()">Terms and Privacy Policy</a></p>
+        <p>By signing in you are agreeing to our <a class="links" (click)="openTermsDialog()">Terms and Conditions</a></p>
         
     </div>
 
