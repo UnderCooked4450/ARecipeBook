@@ -22,35 +22,37 @@ export class TimerComponent {
   toggleTimer(): void {
     if (this.isTimerRunning) {
       this.countdown.unsubscribe();
+    } else if (this.getTotalTime() == 0) {
+      alert('Invalid time entered');
+      return;
     } else {
       this.startTimer();
     }
     this.isTimerRunning = !this.isTimerRunning;
   }
 
-  startTimer(): void {
+  getTotalTime(): number {
     var totalTime =
       (this.hours * 3600 + this.minutes * 60 + this.seconds) * 1000;
+    return totalTime;
+  }
 
-    if (totalTime <= 0) {
-      alert('Invalid time entered!');
-    } else {
-      var remainingTime = totalTime;
-      this.displayTime(totalTime);
+  startTimer(): void {
+    var remainingTime = this.getTotalTime();
+    this.displayTime(remainingTime);
 
-      // Start the countdown
-      this.countdown = interval(1000).subscribe(() => {
-        remainingTime -= 1000;
-        console.log(remainingTime);
-        this.displayTime(remainingTime);
+    // Start the countdown
+    this.countdown = interval(1000).subscribe(() => {
+      remainingTime -= 1000;
+      console.log(remainingTime);
+      this.displayTime(remainingTime);
 
-        if (remainingTime <= 0) {
-          this.isTimerRunning = !this.isTimerRunning;
-          this.countdown.unsubscribe();
-          this.playSound();
-        }
-      });
-    }
+      if (remainingTime <= 0) {
+        this.isTimerRunning = !this.isTimerRunning;
+        this.countdown.unsubscribe();
+        this.playSound();
+      }
+    });
   }
 
   displayTime(time: number): void {
@@ -62,7 +64,7 @@ export class TimerComponent {
 
   playSound(): void {
     //this.audioPlayer.play();
-    alert("Ding ding!! Your timer is finished!")
+    alert('Ding ding!! Your timer is finished!');
   }
 
   home() {

@@ -6,9 +6,10 @@
 
 <div class="container"> 
     <div id="backButton">
-      <button class = "homeButton" (click)="homePage()">
+      <button id="homeButton" class="fas fa-home" (click)="homePage()"> </button>
+      <!--<button class = "homeButton" (click)="homePage()">
           <img class="image" src="../../assets/img/homeIcon.png" alt="Delete">
-       </button>
+       </button>-->
     </div>
     <div *ngIf="editedIngredientIndex !== null" class="editingNotification">
         <label>
