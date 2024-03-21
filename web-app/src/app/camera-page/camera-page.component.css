@@ -1,0 +1,87 @@
+html {
+    margin: 0;
+    padding: 0;
+    align-items: center;
+    background-color: #ffffff; 
+  }
+  
+  body {
+  font-family: "Poppins", sans-serif;
+  background-color: #f7f6f3;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-height: 100vh;
+  margin: 0;
+}
+
+.camera {
+    height: 568px; 
+    background-color: #f2e3ed; 
+    border-radius: 60px; 
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+    overflow: hidden;
+    text-align: center;
+    padding: 20px;
+    border-radius: 15px;
+    width: 50%;
+    max-width: 370px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  }
+  
+  
+  div {
+    margin-top: 20px;
+  }
+  
+  button.actionBtn {
+    background-color: #f88f78;
+    color: white;
+    border: none;
+    border-radius: 20px;
+    padding: 10px 20px;
+    margin: 10px;
+    cursor: pointer;
+    font-size: 18px;
+    transition: background-color 0.3s;
+  }
+  
+  button.actionBtn:hover {
+    background-color: #cf4865;
+  }
+
+  #cameraSwitchCheckbox + label {
+    cursor: pointer;
+    color: #333;
+  }
+  
+  #cameraSwitchCheckbox:checked + label:before {
+    content: '✓';
+    background-color: #f88f78;
+    color: white;
+  }
+  
+  #cameraSwitchCheckbox {
+    display: none;
+  }
+  
+  #cameraSwitchCheckbox + label:before {
+    display: inline-block;
+    width: 20px;
+    height: 20px;
+    margin-right: 10px;
+    vertical-align: bottom;
+    content: '';
+    text-align: center;
+    border: 2px solid #f88f78;
+    border-radius: 5px;
+  }
+  
+  img {
+    max-width: 100%;
+    height: auto;
+    border: 5px solid #f88f78;
+    border-radius: 15px;
+    margin-top: 20px;
+  }
+  
