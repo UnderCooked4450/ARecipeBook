@@ -151,6 +151,13 @@ export class IngredientsPageComponent {
 
 
   recipePage() {
+  // Check if the ingredient list is empty
+  if (this.ingredientList.length === 0) {
+    // Display an alert window asking the user to add ingredients first
+    alert('Please add ingredients first.');
+    return; 
+  }
+
   //extracting ingredient Names from list 
   const ingredientNames = this.ingredientList.map(ingredient => ingredient.ingredientName);
   this.authService.generateRecipes(ingredientNames).subscribe({
@@ -164,14 +171,6 @@ export class IngredientsPageComponent {
     }
   });
   }
-  /*
-recipePage(){
-  const ingredientNames = this.ingredientList.map(ingredient => ingredient.ingredientName);
-  this.authService.setIngredientNames(ingredientNames);
-  this.router.navigate(['/recipe-page']);
-
-}*/
-  
 
   homePage() {
     this.router.navigate(['/homepage']);
