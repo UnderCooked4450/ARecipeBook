@@ -39,8 +39,6 @@ export class CameraPageComponent implements OnInit {
     boolean | string
   >();
 
-  private value: any;
-
   sysImage = '';
 
   public ngOnInit(): void {
@@ -74,10 +72,6 @@ export class CameraPageComponent implements OnInit {
     this.webcamImage = webcamImage;
     this.sysImage = webcamImage!.imageAsBase64;
     this.router.navigate(['/ml-results', this.webcamImage]);
-  }
-  public getValue()
-  {
-    return this.value;
   }
   public cameraWasSwitched(deviceId: string): void {
     console.log('active device: ' + deviceId);
