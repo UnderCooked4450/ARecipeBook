@@ -133,15 +133,17 @@ app.post("/generateRecipe", async (req, res) => {
       // Extract titles from the JSON file
       const jsonTitles = extractTitlesFromJson();
     
-    // Filter out items with empty titles and check for matching hostnames
-      const matchedTitles = scrapedHosts.reduce((matched, scrapedHost) => {
-          if (scrapedHost.title.trim() !== '' && jsonTitles.some(jsonTitle => scrapedHost.hostname.includes(jsonTitle))) {
-      matched.push({ title: scrapedHost.title, url: scrapedHost.url });
-  }
-  return matched;
-}, []);
+      const matchedTitles = [];
+      scrapedHosts.forEach(scrapedHost => {
+      if (scrapedHost.title.trim() !== '' && //removing links with empty titles
+          jsonTitles.some(jsonTitle => scrapedHost.hostname.includes(jsonTitle)) && //adding links that match domain of json file
+          !scrapedHost.url.endsWith('.html')) //removing html links 
+          { matchedTitles.push({ title: scrapedHost.title, url: scrapedHost.url });
+      }
+});
 
-      res.json({ matchedTitles });
+console.log(matchedTitles);
+      res.json( matchedTitles );
   } catch (error) {
       console.error('Error:', error);
       res.status(500).json({ error: 'An error occurred' });
