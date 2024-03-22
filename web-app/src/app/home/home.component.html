@@ -25,6 +25,12 @@
       submit
     </button>
   </div>
+  <!-- this is when the user search the recipe -->
+  <ul *ngIf="recipeLinks.length">
+    <li *ngFor="let link of recipeLinks">
+      <a [href]="link.url" target="_blank">{{ link.title }}</a>
+    </li>
+  </ul>
   <div class="function-buttons">
     <button class="scan-ingredient-feature" (click)="camera()">
       <i class="fas fa-camera camera-icon"></i>
@@ -49,10 +55,4 @@
       </div>
     </button>
   </div>
-  <!-- this is when the user search the recipe -->
-  <ul *ngIf="recipeLinks.length">
-    <li *ngFor="let link of recipeLinks">
-      <a [href]="link.url" target="_blank">{{ link.title }}</a>
-    </li>
-  </ul>
 </div>
