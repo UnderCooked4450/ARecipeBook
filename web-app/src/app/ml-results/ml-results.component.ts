@@ -56,5 +56,14 @@ ngOnInit(){
   home(){
     this.router.navigate(["/homepage"])
   }
+  
+  
+camera() {
+  this.router.navigate(['/camera']);
 
+}
+
+addIngredient() {
+  this.router.navigate(['/ingredientsPage']);
+}
 }
