@@ -60,3 +60,14 @@ ng serve
 4. Open your browser and visit `http://localhost:4200` to access the application.
 
 <p align="right">(<a href="#readme-top">back to top</a>)</p> 
+
+<!-- CONTACT -->
+## Contact
+* Nicholas Gin - [![GitHub](https://img.shields.io/badge/GitHub-black?style=for-the-badge&logo=github)](https://github.com/NicholasGin) 
+* Andy Huang - [![GitHub](https://img.shields.io/badge/GitHub-black?style=for-the-badge&logo=github)](https://github.com/andy0207huang)
+* Kurtis Scheufen - [![GitHub](https://img.shields.io/badge/GitHub-black?style=for-the-badge&logo=github)](https://github.com/kscheufe) 
+* Puja Patel - [![GitHub](https://img.shields.io/badge/GitHub-black?style=for-the-badge&logo=github)](https://github.com/ppate343)
+* Chamike Perera - [![GitHub](https://img.shields.io/badge/GitHub-black?style=for-the-badge&logo=github)](https://github.com/SplendidTea)
+* Chen Weng - [![GitHub](https://img.shields.io/badge/GitHub-black?style=for-the-badge&logo=github)](https://github.com/Brianna0510)
+
+<p align="right">(<a href="#readme-top">back to top</a>)</p>
