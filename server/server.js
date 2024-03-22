@@ -61,7 +61,7 @@ app.post("/search", async (req, res) => {
       const title = document.querySelectorAll("h3");
 
       title.forEach((h3, index) => {
-        if (index < 5) {
+        if (index > 1 && index < 6) {
           const title = h3.innerText;
           const url = h3.parentElement.href;
           searchResults.push({ title, url });
